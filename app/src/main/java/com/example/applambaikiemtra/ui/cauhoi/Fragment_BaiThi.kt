@@ -57,7 +57,7 @@ class Fragment_BaiThi : Fragment() {
     }
     fun getData()
     {
-        viewmodel.getData(args.ten)
+        viewmodel.getData(args.mon,args.ten)
     }
 
 }

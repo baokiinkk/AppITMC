@@ -14,10 +14,10 @@ class ViewModel_BaiThi(val firestore: firestore) :ViewModel() {
     {
 
     }
-    fun getData(debai:String)
+    fun getData(bomon:String,debai:String)
     {
         viewModelScope.launch {
-               list.postValue(firestore.getBaiLam("Toán",debai))
+               list.postValue(firestore.getBaiLam(bomon,debai))
         }
     }
 }

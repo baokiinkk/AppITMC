@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.applambaikiemtra.databinding.FragmentDeBaiBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -23,6 +24,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class Fragment_DeBai : Fragment() {
     lateinit var adapterRecycelView:AdapterRecycelView
     val viewModel: ViewModel_DeBai by viewModel<ViewModel_DeBai>()
+    val args : Fragment_DeBaiArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,8 +32,8 @@ class Fragment_DeBai : Fragment() {
         val bd:FragmentDeBaiBinding=DataBindingUtil.inflate(inflater,R.layout.fragment__de_bai,container,false)
         bd.lifecycleOwner = this
         bd.viewmodel=viewModel
-
-        viewModel.loadData()
+        Toast.makeText(context,args.mon,Toast.LENGTH_SHORT).show()
+        viewModel.loadData(args.mon)
 
         adapterRecycelView= AdapterRecycelView(viewModel.list,R.layout.custom_cauhoi)
         val linearLayout:RecyclerView.LayoutManager =LinearLayoutManager(context!!)
@@ -40,7 +42,7 @@ class Fragment_DeBai : Fragment() {
         adapterRecycelView.setOnItemClick(object :OnItemClicks
         {
             override fun OnItemClick(v: View, position: Int) {
-                val actionToFinsh: NavDirections =Fragment_DeBaiDirections.toCauHoi(viewModel.list[position])
+                val actionToFinsh: NavDirections =Fragment_DeBaiDirections.toCauHoi(viewModel.list[position],args.mon)
                 findNavController().navigate(actionToFinsh  )
             }
 

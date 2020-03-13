@@ -13,10 +13,10 @@ class ViewModel_DeBai(val firebase:firestore) :ViewModel() {
     var list = mutableListOf<String>()
     var toLogin: MutableLiveData<Boolean?> = MutableLiveData(null)
     var tocheck: MutableLiveData<Boolean?> = MutableLiveData(null)
-    fun loadData()
+    fun loadData(bomon:String)
     {
         viewModelScope.launch {
-            var getdata = firebase.getSizeDeBai("Toán")
+            var getdata = firebase.getSizeDeBai(bomon)
             var flow: Long? = getdata["Số lượng đề"]
             var temp :Int = list.size
                 if(temp < flow!!)

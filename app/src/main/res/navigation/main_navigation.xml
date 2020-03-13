@@ -13,7 +13,8 @@
             android:id="@+id/toCauHoi"
             app:destination="@id/fragment_BaiThi"
             app:popUpTo="@+id/fragment_DeBai" />
-        <argument android:name="môn" />
+        <argument android:name="mon"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Diem"
@@ -35,6 +36,9 @@
             app:destination="@id/fragment_Diem" />
         <argument
             android:name="ten"
+            app:argType="string" />
+        <argument
+            android:name="mon"
             app:argType="string" />
     </fragment>
     <fragment
