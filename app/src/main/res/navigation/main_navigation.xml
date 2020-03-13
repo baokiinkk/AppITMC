@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/fragment_BoMon">
+    <fragment
+        android:id="@+id/fragment_DeBai"
+        android:name="com.example.applambaikiemtra.ui.debai.Fragment_DeBai"
+        android:label="fragment__de_bai"
+        tools:layout="@layout/fragment__de_bai" >
+        <action
+            android:id="@+id/toCauHoi"
+            app:destination="@id/fragment_BaiThi"
+            app:popUpTo="@+id/fragment_DeBai" />
+        <argument android:name="môn" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_Diem"
+        android:name="com.example.applambaikiemtra.ui.diem.Fragment_Diem"
+        android:label="fragment__diem"
+        tools:layout="@layout/fragment__diem" >
+        <action
+            android:id="@+id/ToDeBai"
+            app:destination="@id/fragment_DeBai"
+            app:popUpTo="@+id/fragment_BoMon" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_BaiThi"
+        android:name="com.example.applambaikiemtra.ui.cauhoi.Fragment_BaiThi"
+        android:label="fragment__bai_thi"
+        tools:layout="@layout/fragment__bai_thi" >
+        <action
+            android:id="@+id/toDiem"
+            app:destination="@id/fragment_Diem" />
+        <argument
+            android:name="ten"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_BoMon"
+        android:name="com.example.applambaikiemtra.ui.boMon.Fragment_BoMon"
+        android:label="fragment__bo_mon"
+        tools:layout="@layout/fragment__bo_mon" >
+        <action
+            android:id="@+id/toBai"
+            app:destination="@id/fragment_DeBai" />
+    </fragment>
+</navigation>
