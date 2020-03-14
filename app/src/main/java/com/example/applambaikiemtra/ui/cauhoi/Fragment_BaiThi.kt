@@ -34,6 +34,7 @@ class Fragment_BaiThi : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val bd:FragmentBaiThiBinding=DataBindingUtil.inflate(inflater,R.layout.fragment__bai_thi,container,false)
         bd.lifecycleOwner = this
         bd.viewmodel=viewmodel

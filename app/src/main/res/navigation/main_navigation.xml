@@ -12,6 +12,10 @@
         <action
             android:id="@+id/toCauHoi"
             app:destination="@id/fragment_BaiThi"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_open_exit"
             app:popUpTo="@+id/fragment_DeBai" />
         <argument android:name="mon"
             app:argType="string" />
@@ -48,6 +52,10 @@
         tools:layout="@layout/fragment__bo_mon" >
         <action
             android:id="@+id/toBai"
-            app:destination="@id/fragment_DeBai" />
+            app:destination="@id/fragment_DeBai"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_open_exit" />
     </fragment>
 </navigation>

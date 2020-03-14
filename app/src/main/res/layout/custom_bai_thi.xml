@@ -4,68 +4,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="#fff">
 
     <TextView
         android:id="@+id/txtCauHoi"
-        android:layout_width="278dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="272dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="50dp"
+        android:text="adsdfsadsad
+"
         android:textColor="#000"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCau" />
 
     <TextView
         android:id="@+id/txtCau"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="28dp"
+        android:text="Câu 1:"
         android:textColor="#000"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/txtCauHoi"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ToggleButton
-        android:id="@+id/btnA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/selectic"
+    <RadioGroup
+        android:layout_width="271dp"
+        android:layout_height="288dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCauHoi" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCauHoi"
+        app:layout_constraintVertical_bias="0.0">
 
-    <ToggleButton
-        android:id="@+id/btnB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/selectic"
-        app:layout_constraintStart_toStartOf="@+id/btnA"
-        app:layout_constraintTop_toBottomOf="@+id/btnA" />
+        <RadioButton
+            android:id="@+id/A"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RadioButton"
+            android:textSize="20sp" />
 
-    <ToggleButton
-        android:id="@+id/btnC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/selectic"
-        app:layout_constraintStart_toStartOf="@+id/btnB"
-        app:layout_constraintTop_toBottomOf="@+id/btnB" />
+        <RadioButton
+            android:id="@+id/B"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="RadioButton"
+            android:textSize="20sp" />
 
-    <ToggleButton
-        android:id="@+id/btnD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/selectic"
-        app:layout_constraintStart_toStartOf="@+id/btnC"
-        app:layout_constraintTop_toBottomOf="@+id/btnC" />
+        <RadioButton
+            android:id="@+id/C"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="RadioButton"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/D"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="RadioButton"
+            android:textSize="20sp" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

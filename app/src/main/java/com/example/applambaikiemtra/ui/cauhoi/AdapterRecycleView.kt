@@ -12,10 +12,10 @@ class ViewHodel(v: View):RecyclerView.ViewHolder(v)
 {
     val txtCau=v.txtCau
     val txtCauHoi=v.txtCauHoi
-    val btnA=v.btnA
-    val btnB=v.btnB
-    val btnC=v.btnC
-    val btnD=v.btnD
+    val btnA=v.A
+    val btnB=v.B
+    val btnC=v.C
+    val btnD=v.D
 }
 class AdapterRecycleView(val list:MutableLiveData<MutableList<MutableMap<String,String>> >) :RecyclerView.Adapter<ViewHodel>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHodel {
@@ -34,15 +34,11 @@ class AdapterRecycleView(val list:MutableLiveData<MutableList<MutableMap<String,
 
         holder.btnA.isChecked=false
 
-        holder.btnA.textOff="A: "+ list.value?.get(position)?.get("A")
-        holder.btnB.textOff="B: "+ list.value?.get(position)?.get("B")
-        holder.btnC.textOff="C: "+ list.value?.get(position)?.get("C")
-        holder.btnD.textOff="D: "+ list.value?.get(position)?.get("D")
 
-        holder.btnA.textOn="A: "+ list.value?.get(position)?.get("A")
-        holder.btnB.textOn="B: "+ list.value?.get(position)?.get("B")
-        holder.btnC.textOn="C: "+ list.value?.get(position)?.get("C")
-        holder.btnD.textOn="D: "+ list.value?.get(position)?.get("D")
+        holder.btnA.text="A: "+ list.value?.get(position)?.get("A")
+        holder.btnB.text="B: "+ list.value?.get(position)?.get("B")
+        holder.btnC.text="C: "+ list.value?.get(position)?.get("C")
+        holder.btnD.text="D: "+ list.value?.get(position)?.get("D")
 
     }
 }
