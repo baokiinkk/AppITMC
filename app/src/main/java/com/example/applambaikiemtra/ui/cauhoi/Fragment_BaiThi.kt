@@ -1,14 +1,17 @@
 package com.example.applambaikiemtra.ui.cauhoi
 
 
+import android.app.Dialog
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -47,10 +50,12 @@ class Fragment_BaiThi : Fragment() {
                 bd.recyclerView.adapter=adapterRecycelView
             }
         })
-        val start = object :CountDownTimer(120000, 1000)
+        val start = object :CountDownTimer(6000, 1000)
         {
             override fun onFinish() {
                 textView2.text="00:00"
+               // viewmodel.cauDung.value=adapterRecycelView.socauDung.toString()
+                openDialog()
                 adapterRecycelView.notifyDataSetChanged()
             }
 
@@ -67,7 +72,7 @@ class Fragment_BaiThi : Fragment() {
                 start.onFinish()
                 start.cancel()
                 textView2.isEnabled=false
-                openDialog()
+
             }
 
         })
@@ -81,9 +86,13 @@ class Fragment_BaiThi : Fragment() {
     }
     fun openDialog() {
 
-       val dialog= Dialog()
-           dialog.show(activity!!.supportFragmentManager, "ex")
-
+        val dialog: Dialog=Dialog(context!!)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setContentView(R.layout.dialog)
+        dialog.soCau.text=viewmodel.cauDung.value+"/"+ viewmodel.list.value!!.size
+        dialog.button.setOnClickListener { dialog.cancel() }
+        dialog.show()
     }
 
 }

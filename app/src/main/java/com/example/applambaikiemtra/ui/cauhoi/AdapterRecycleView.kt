@@ -45,7 +45,7 @@ class AdapterRecycleView(val list:MutableLiveData<MutableList<MutableMap<String,
         holder.btnC.text="C: "+ list.value?.get(position)?.get("C")
         holder.btnD.text="D: "+ list.value?.get(position)?.get("D")
 
-
+            Toast.makeText(holder.btnA.context,position.toString(),Toast.LENGTH_SHORT).show()
             var dapan= list.value?.get(position)?.get("Đáp án")
             check(holder.btnA,holder.btnB,holder.btnC,holder.btnD,dapan)
             check(holder.btnB,holder.btnA,holder.btnC,holder.btnD,dapan)
