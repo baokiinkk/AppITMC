@@ -13,6 +13,7 @@ class ViewModel_BoMon(val firebase:firestore): ViewModel() {
         var list:MutableLiveData<MutableMap<String,String>> = MutableLiveData()
         var toLogin: MutableLiveData<Boolean?> = MutableLiveData(null)
         var tocheck: MutableLiveData<Boolean?> = MutableLiveData(null)
+        var test:String=""
         fun listener()
         {
             loadData()
@@ -22,6 +23,7 @@ class ViewModel_BoMon(val firebase:firestore): ViewModel() {
         {
             viewModelScope.launch {
                 list.postValue(firebase.getSizeBoMon())
+
             }
 
         }

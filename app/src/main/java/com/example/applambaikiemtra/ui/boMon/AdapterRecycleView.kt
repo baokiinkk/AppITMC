@@ -1,11 +1,13 @@
-package com.example.applambaikiemtra.ui.debai
+package com.example.applambaikiemtra.ui.boMon
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applambaikiemtra.R
+import kotlinx.android.synthetic.main.custom_bo_mon.view.*
 import kotlinx.android.synthetic.main.custom_cauhoi.view.*
+import kotlinx.android.synthetic.main.custom_cauhoi.view.textView
 
 
 interface OnItemClicks  {
@@ -19,7 +21,7 @@ class AdapterRecycelView(val list:List<String>) : RecyclerView.Adapter<AdapterRe
         this.listener=listener
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHodel {
-        val view:View=LayoutInflater.from(parent.context).inflate(R.layout.custom_cauhoi,parent,false)
+        val view:View=LayoutInflater.from(parent.context).inflate(R.layout.custom_bo_mon ,parent,false)
         var viewHodel:viewHodel= viewHodel(view)
         return viewHodel
     }
@@ -40,8 +42,9 @@ class AdapterRecycelView(val list:List<String>) : RecyclerView.Adapter<AdapterRe
         }
 
         val btnDeBai=v.textView
+        val hinhanh=v.imageView2
         init {
-            btnDeBai.setOnClickListener(this)
+            hinhanh.setOnClickListener(this)
         }
 
     }

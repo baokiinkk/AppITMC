@@ -13,6 +13,7 @@ class ViewModel_DeBai(val firebase:firestore) :ViewModel() {
     var list = mutableListOf<String>()
     var toLogin: MutableLiveData<Boolean?> = MutableLiveData(null)
     var tocheck: MutableLiveData<Boolean?> = MutableLiveData(null)
+    var test:String="Môn Toán"
     fun loadData(bomon:String)
     {
         viewModelScope.launch {

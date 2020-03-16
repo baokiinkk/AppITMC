@@ -15,7 +15,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.NavigationUI
 import com.example.applambaikiemtra.databinding.FragmentDeBaiBinding
+import com.example.applambaikiemtra.ui.main.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -32,10 +34,10 @@ class Fragment_DeBai : Fragment() {
         val bd:FragmentDeBaiBinding=DataBindingUtil.inflate(inflater,R.layout.fragment__de_bai,container,false)
         bd.lifecycleOwner = this
         bd.viewmodel=viewModel
-        Toast.makeText(context,args.mon,Toast.LENGTH_SHORT).show()
+        viewModel.test="Môn"+args.mon
         viewModel.loadData(args.mon)
 
-        adapterRecycelView= AdapterRecycelView(viewModel.list,R.layout.custom_cauhoi)
+        adapterRecycelView= AdapterRecycelView(viewModel.list)
         val linearLayout:RecyclerView.LayoutManager =LinearLayoutManager(context!!)
         bd.recyclerView.adapter=adapterRecycelView
         bd.recyclerView.layoutManager=linearLayout
