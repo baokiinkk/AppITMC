@@ -1,8 +1,12 @@
 package com.example.applambaikiemtra.ui.main
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -29,6 +33,32 @@ class MainActivity : AppCompatActivity() {
              R.id.fragment_BoMon), drawer_layout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        navView.setNavigationItemSelectedListener{
+            when(it.itemId)
+            {
+                R.id.nav_fanpage->getlink("https://www.facebook.com/it.multimedia.club/")
+                R.id.nav_facebook->getlink("https://www.facebook.com/baokiin")
+                R.id.nav_web->getlink("https://itmc-ptithcm.github.io/")
+                R.id.nav_danhgia->
+                {
+                    val intent:Intent= Intent(Intent.ACTION_SEND);
+                    intent.setType("message/rfc822")
+                    intent.putExtra(Intent.EXTRA_EMAIL,"baokiinkk@gmail.com")
+                    intent.putExtra(Intent.EXTRA_SUBJECT,"-Phản Hồi Đóng Góp Xây Dựng App:")
+                    intent.putExtra(Intent.EXTRA_TEXT,"... ")
+                    startActivity(Intent.createChooser(intent,"choose an email client"))
+                }
+            }
+             true
+        }
+
+    }
+
+    fun getlink(url:String)
+    {
+        var intent:Intent=Intent(Intent.ACTION_VIEW)
+        intent.data= Uri.parse(url)
+        startActivity(intent)
     }
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.main_navigation)

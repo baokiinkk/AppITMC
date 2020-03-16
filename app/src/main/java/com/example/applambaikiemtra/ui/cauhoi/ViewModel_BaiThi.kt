@@ -11,6 +11,7 @@ class ViewModel_BaiThi(val firestore: firestore) :ViewModel() {
     var list:MutableLiveData<MutableList<MutableMap<String,String>> > = MutableLiveData()
     val DeBai:MutableLiveData<String>? = null
     var check:MutableLiveData<Boolean> = MutableLiveData(false)
+    var text:MutableLiveData<String> = MutableLiveData("Thời Gian")
     fun listener()
     {
         check.postValue(true)

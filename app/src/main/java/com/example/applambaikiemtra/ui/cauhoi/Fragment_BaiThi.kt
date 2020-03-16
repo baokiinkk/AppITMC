@@ -2,18 +2,22 @@ package com.example.applambaikiemtra.ui.cauhoi
 
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applambaikiemtra.R
 import com.example.applambaikiemtra.databinding.FragmentBaiThiBinding
+import kotlinx.android.synthetic.main.dialog.*
+import kotlinx.android.synthetic.main.fragment_bai_thi.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -43,12 +47,30 @@ class Fragment_BaiThi : Fragment() {
                 bd.recyclerView.adapter=adapterRecycelView
             }
         })
+        val start = object :CountDownTimer(120000, 1000)
+        {
+            override fun onFinish() {
+                textView2.text="00:00"
+                adapterRecycelView.notifyDataSetChanged()
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+                var phut: Long =millisUntilFinished/60000
+                var giay:Long=(millisUntilFinished/1000)%60
+                viewmodel.text.value=phut.toString()+":"+giay.toString()
+            }
+
+        }.start()
         viewmodel.check.observe(viewLifecycleOwner, Observer {
             if(it == true)
-                adapterRecycelView.notifyDataSetChanged()
+            {
+                start.onFinish()
+                start.cancel()
+                textView2.isEnabled=false
+                openDialog()
+            }
+
         })
-
-
 
 
         return bd.root
@@ -56,6 +78,12 @@ class Fragment_BaiThi : Fragment() {
     fun getData()
     {
         viewmodel.getData(args.mon,args.ten)
+    }
+    fun openDialog() {
+
+       val dialog= Dialog()
+           dialog.show(activity!!.supportFragmentManager, "ex")
+
     }
 
 }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applambaikiemtra.R
 import com.example.applambaikiemtra.databinding.FragmentBoMonBinding
+import com.example.applambaikiemtra.ui.debai.AdapterRecycelView
 import com.example.applambaikiemtra.ui.debai.OnItemClicks
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,7 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * A simple [Fragment] subclass.
  */
 class Fragment_BoMon : Fragment() {
-   lateinit var adapterRecycelView:AdapterRecycelView
+   lateinit var adapterRecycelView:com.example.applambaikiemtra.ui.boMon.AdapterRecycelView
     val viewModel: ViewModel_BoMon by viewModel<ViewModel_BoMon>()
     val x :MutableList<String> = mutableListOf()
     override fun onCreateView(
@@ -44,7 +45,7 @@ class Fragment_BoMon : Fragment() {
                     for(i in viewModel.list.value?.values!!)
                         x.add(i)
                     viewModel.test= viewModel.list.value?.size.toString()+" item"
-                    adapterRecycelView= AdapterRecycelView(x)
+                    adapterRecycelView= com.example.applambaikiemtra.ui.boMon.AdapterRecycelView(x)
                     val linearLayout: RecyclerView.LayoutManager = GridLayoutManager(context,2,GridLayoutManager.VERTICAL,false)
                     bd.recyclerView.adapter=adapterRecycelView
                     bd.recyclerView.layoutManager=linearLayout
