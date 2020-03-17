@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <item android:title="Liên hệ"
+
+        >
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_fanpage"
+                    android:icon="@drawable/ic_menu_camera"
+                    android:title="@string/menu_home" />
+                <item
+                    android:id="@+id/nav_web"
+                    android:icon="@drawable/ic_menu_gallery"
+                    android:title="@string/menu_gallery" />
+                <item
+                    android:id="@+id/nav_facebook"
+                    android:icon="@drawable/ic_menu_manage"
+                    android:title="@string/menu_tools" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="Đánh giá và chia sẻ">
+        <menu>
+            <item android:title="Chia sẻ"
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                />
+            <item android:icon="@drawable/ic_menu_manage"
+                    android:title="Đánh giá"
+                    android:id="@+id/nav_danhgia"/>
+        </menu>
+    </item>
+
+
+
+</menu>

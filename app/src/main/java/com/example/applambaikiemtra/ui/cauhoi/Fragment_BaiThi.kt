@@ -50,12 +50,13 @@ class Fragment_BaiThi : Fragment() {
                 bd.recyclerView.adapter=adapterRecycelView
             }
         })
-        val start = object :CountDownTimer(6000, 1000)
+        val start = object :CountDownTimer(60000, 1000)
         {
             override fun onFinish() {
                 textView2.text="00:00"
                // viewmodel.cauDung.value=adapterRecycelView.socauDung.toString()
                 openDialog()
+                adapterRecycelView.boolean=true
                 adapterRecycelView.notifyDataSetChanged()
             }
 

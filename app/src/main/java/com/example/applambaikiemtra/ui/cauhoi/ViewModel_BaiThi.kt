@@ -13,6 +13,7 @@ class ViewModel_BaiThi(val firestore: firestore) :ViewModel() {
     var check:MutableLiveData<Boolean> = MutableLiveData(false)
     var text:MutableLiveData<String> = MutableLiveData("Thời Gian")
     var cauDung:MutableLiveData<String> = MutableLiveData("0")
+    var checkdapan:MutableLiveData<Boolean> = MutableLiveData(false)
     fun listener()
     {
         check.postValue(true)

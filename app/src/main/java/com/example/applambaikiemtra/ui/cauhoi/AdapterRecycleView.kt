@@ -26,6 +26,7 @@ class ViewHodel(v: View):RecyclerView.ViewHolder(v)
 }
 class AdapterRecycleView(val list:MutableLiveData<MutableList<MutableMap<String,String>> >) :RecyclerView.Adapter<ViewHodel>() {
 
+    var boolean: Boolean=false
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHodel {
         val view =LayoutInflater.from(parent.context).inflate( R.layout.custom_bai_thi,parent,false)
         val viewHodel=ViewHodel(view)
@@ -39,55 +40,67 @@ class AdapterRecycleView(val list:MutableLiveData<MutableList<MutableMap<String,
     override fun onBindViewHolder(holder: ViewHodel, position: Int) {
         holder.txtCau.text="Câu "+(position+1)+" "
         holder.txtCauHoi.text= list.value?.get(position)?.get("Câu hỏi")
+        val A =list.value?.get(position)?.get("A")
+        val B =list.value?.get(position)?.get("B")
+        val C =list.value?.get(position)?.get("C")
+        val D =list.value?.get(position)?.get("D")
+        holder.btnA.text="A: "+ A
+        holder.btnB.text="B: "+ B
+        holder.btnC.text="C: "+ C
+        holder.btnD.text="D: "+ D
 
-        holder.btnA.text="A: "+ list.value?.get(position)?.get("A")
-        holder.btnB.text="B: "+ list.value?.get(position)?.get("B")
-        holder.btnC.text="C: "+ list.value?.get(position)?.get("C")
-        holder.btnD.text="D: "+ list.value?.get(position)?.get("D")
+        if(boolean ==true)
+        {
+            var vitriChon:Int=-1
+            var vitriDapAn:Int=-1
+            var dapan: String? = list.value?.get(position)?.get("Đáp án")
+            if(holder.btnA.isChecked == true) vitriChon=1
+            else if(holder.btnB.isChecked == true) vitriChon=2
+            else if(holder.btnC.isChecked == true) vitriChon=3
+            else if(holder.btnD.isChecked == true) vitriChon=4
+            else vitriChon=-1
 
-            Toast.makeText(holder.btnA.context,position.toString(),Toast.LENGTH_SHORT).show()
-            var dapan= list.value?.get(position)?.get("Đáp án")
-            check(holder.btnA,holder.btnB,holder.btnC,holder.btnD,dapan)
-            check(holder.btnB,holder.btnA,holder.btnC,holder.btnD,dapan)
-            check(holder.btnC,holder.btnA,holder.btnB,holder.btnD,dapan)
-            check(holder.btnD,holder.btnA,holder.btnB,holder.btnC,dapan)
+            if(A == dapan) vitriDapAn=1
+            else if(B == dapan) vitriDapAn=2
+            else if(C == dapan) vitriDapAn=3
+            else  vitriDapAn=4
 
-
-
-    }
-    fun check(button: RadioButton,buttoA: RadioButton,buttoB: RadioButton,buttoC: RadioButton,test:String?)
-    {
-        val temp:String= button.text.toString().removeRange(0,3)
-            if(button.isChecked == true && temp != test)
-            {
-                button.setBackgroundResource(R.drawable.err)
-                button.isEnabled=false
-                checkOK(buttoA,buttoB,buttoC,test)
-            }
-            if(button.isChecked == true && temp == test)
-            {
-                button.isEnabled=false
-                buttoA.isEnabled=false
-                buttoB.isEnabled=false
-                buttoC.isEnabled=false
-
-            }
+            check(holder.btnA,holder.btnB,holder.btnC,holder.btnD,vitriDapAn,vitriChon)
+        }
 
     }
-    fun checkOK(btnA:RadioButton,btnB:RadioButton,btnC:RadioButton,test: String?)
-    {
-        btnA.isEnabled=false
-        btnB.isEnabled=false
-        btnC.isEnabled=false
-        val tempA:String= btnA.text.toString().removeRange(0,3)
-        val tempB:String= btnB.text.toString().removeRange(0,3)
-        val tempC:String= btnC.text.toString().removeRange(0,3)
 
-        if(tempA == test)
-            btnA.setBackgroundResource(R.drawable.checked)
-        else if(tempB == test)
-            btnB.setBackgroundResource(R.drawable.checked)
+    fun reset(btnA: RadioButton,btnB: RadioButton,btnC: RadioButton,btcD:RadioButton)
+    {
+        btnA.setBackgroundResource(R.drawable.nocheck)
+        btnB.setBackgroundResource(R.drawable.nocheck)
+        btnC.setBackgroundResource(R.drawable.nocheck)
+        btcD.setBackgroundResource(R.drawable.nocheck)
+
+    }
+    fun toXanh(vitri:Int,btnA: RadioButton,btnB: RadioButton,btnC: RadioButton,btcD: RadioButton)
+    {
+        if(vitri == 1) btnA.setBackgroundResource(R.drawable.checked)
+        else if(vitri == 2) btnB.setBackgroundResource(R.drawable.checked)
+        else if(vitri == 3) btnC.setBackgroundResource(R.drawable.checked)
+        else  btcD.setBackgroundResource(R.drawable.checked)
+    }
+    fun toDo(vitri:Int,btnA: RadioButton,btnB: RadioButton,btnC: RadioButton,btcD: RadioButton)
+    {
+        if(vitri == 1) btnA.setBackgroundResource(R.drawable.err)
+        else if(vitri == 2) btnB.setBackgroundResource(R.drawable.err)
+        else if(vitri == 3) btnC.setBackgroundResource(R.drawable.err)
+        else   btcD.setBackgroundResource(R.drawable.err)
+    }
+    fun check(btnA:RadioButton,btnB:RadioButton,btnC:RadioButton,btcD: RadioButton,dapan:Int,luachon:Int)
+    {
+        reset(btnA,btnB,btnC,btcD)
+        if(dapan == luachon || luachon ==-1)
+            toXanh(dapan,btnA,btnB,btnC,btcD)
         else
-            btnC.setBackgroundResource(R.drawable.checked)
+        {
+            toDo(luachon,btnA,btnB,btnC,btcD)
+            toXanh(dapan,btnA,btnB,btnC,btcD)
+        }
     }
 }
