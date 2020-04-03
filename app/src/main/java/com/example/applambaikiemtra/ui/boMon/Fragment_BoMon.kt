@@ -1,6 +1,9 @@
 package com.example.applambaikiemtra.ui.boMon
 
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,58 +17,70 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applambaikiemtra.R
+import com.example.applambaikiemtra.data.db.AppDao
 import com.example.applambaikiemtra.databinding.FragmentBoMonBinding
-import com.example.applambaikiemtra.ui.debai.AdapterRecycelView
-import com.example.applambaikiemtra.ui.debai.OnItemClicks
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import androidx.core.content.ContextCompat.getSystemService
+
 
 /**
  * A simple [Fragment] subclass.
  */
 class Fragment_BoMon : Fragment() {
-   lateinit var adapterRecycelView:com.example.applambaikiemtra.ui.boMon.AdapterRecycelView
     val viewModel: ViewModel_BoMon by viewModel<ViewModel_BoMon>()
-    val x :MutableList<String> = mutableListOf()
+    var x :MutableList<String> = mutableListOf()
+    var listAdapter:BoMonAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
+        val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+        if(isConnected ==true)
+            viewModel.loadDatatoSQl()
+        else
+            viewModel.loadData()
         val bd: FragmentBoMonBinding =
             DataBindingUtil.inflate(inflater,R.layout.fragment__bo_mon,container,false)
         bd.lifecycleOwner=this
         bd.viewmodel=viewModel
 
-        viewModel.loadData()
-
 
         viewModel.list.observe(viewLifecycleOwner, Observer {
                 if(it != null)
                 {
-                    x.clear()
-                    for(i in viewModel.list.value?.values!!)
-                        x.add(i)
-                    viewModel.test= viewModel.list.value?.size.toString()+" item"
-                    adapterRecycelView= com.example.applambaikiemtra.ui.boMon.AdapterRecycelView(x)
-                    val linearLayout: RecyclerView.LayoutManager = GridLayoutManager(context,2,GridLayoutManager.VERTICAL,false)
-                    bd.recyclerView.adapter=adapterRecycelView
-                    bd.recyclerView.layoutManager=linearLayout
-                    adapterRecycelView.setOnItemClick(object : com.example.applambaikiemtra.ui.boMon.OnItemClicks
-                    {
-                        override fun OnItemClick(v: View, position: Int) {
-                            val actionToFinsh: NavDirections =Fragment_BoMonDirections.toBai(x[position])
-                            findNavController().navigate(actionToFinsh  )
-                        }
+                    viewModel.test.value= it.size.toString()+" item"
 
-                    })
-                }
+                    listAdapter= BoMonAdapter { position ->
+                        val actionToFinsh: NavDirections =Fragment_BoMonDirections.toBai(
+                                it[position].tenBoMon)
+                            findNavController().navigate(actionToFinsh  )
+                    }
+                    listAdapter!!.submitList(it)
+                    val linearLayout: RecyclerView.LayoutManager = GridLayoutManager(context,2,GridLayoutManager.VERTICAL,false)
+                    bd.recyclerView.adapter=listAdapter
+                    bd.recyclerView.layoutManager=linearLayout
+
+
+
+
+
+                 }
             }
         )
         viewModel.toLogin.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if(it == true)
                 {
-                    Toast.makeText(context,"Cập nhật thành công",Toast.LENGTH_SHORT).show()
-                    viewModel.toLogin.postValue(false)
+                    if(isConnected ==true) {
+                        viewModel.loadDatatoSQl()
+                        Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show()
+                        viewModel.toLogin.postValue(false)
+                    }
+                    else
+                        Toast.makeText(context,"Thiết bị hiện không có mạng.xin vui lòng kiểm tra lại!!",Toast.LENGTH_SHORT).show()
                 }
             }
         })

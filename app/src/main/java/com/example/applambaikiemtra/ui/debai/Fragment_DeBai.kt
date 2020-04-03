@@ -1,6 +1,9 @@
 package com.example.applambaikiemtra.ui.debai
 
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,7 +27,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * A simple [Fragment] subclass.
  */
 class Fragment_DeBai : Fragment() {
-    lateinit var adapterRecycelView:AdapterRecycelView
+    lateinit var adapterRecycelView:DeBaiAdapter
     val viewModel: ViewModel_DeBai by viewModel<ViewModel_DeBai>()
     val args : Fragment_DeBaiArgs by navArgs()
     override fun onCreateView(
@@ -34,30 +37,36 @@ class Fragment_DeBai : Fragment() {
         val bd:FragmentDeBaiBinding=DataBindingUtil.inflate(inflater,R.layout.fragment__de_bai,container,false)
         bd.lifecycleOwner = this
         bd.viewmodel=viewModel
-        viewModel.test="Môn"+args.mon
-        viewModel.loadData(args.mon)
+        viewModel.test.value="Môn"+args.mon
 
-        adapterRecycelView= AdapterRecycelView(viewModel.list)
-        val linearLayout:RecyclerView.LayoutManager =LinearLayoutManager(context!!)
-        bd.recyclerView.adapter=adapterRecycelView
-        bd.recyclerView.layoutManager=linearLayout
-        adapterRecycelView.setOnItemClick(object :OnItemClicks
+        // load data
+        val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
+        val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+        if(isConnected == true)
         {
-            override fun OnItemClick(v: View, position: Int) {
-                val actionToFinsh: NavDirections =Fragment_DeBaiDirections.toCauHoi(viewModel.list[position],args.mon)
-                findNavController().navigate(actionToFinsh  )
-            }
+            viewModel.loadDatatoSQl(args.mon)
+        }
+        else
+            viewModel.loadData(args.mon)
 
-        })
-
-        viewModel.tocheck.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                if(it == true || it == false)
-                {
-                   adapterRecycelView.notifyDataSetChanged()
+        viewModel.list.observe(viewLifecycleOwner, Observer {
+            if(it!=null) {
+                adapterRecycelView = DeBaiAdapter {position->
+                    val actionToFinsh: NavDirections =
+                        Fragment_DeBaiDirections.toCauHoi(
+                            it.get(position).ten,
+                            args.mon
+                        )
+                    findNavController().navigate(actionToFinsh)
                 }
+                val linearLayout: RecyclerView.LayoutManager = LinearLayoutManager(context!!)
+                bd.recyclerView.adapter = adapterRecycelView
+                bd.recyclerView.layoutManager = linearLayout
+                adapterRecycelView.submitList(it)
             }
         })
+
 
         return bd.root
     }

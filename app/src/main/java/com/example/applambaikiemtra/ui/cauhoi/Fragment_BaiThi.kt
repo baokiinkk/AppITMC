@@ -35,7 +35,6 @@ class Fragment_BaiThi : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val bd:FragmentBaiThiBinding=DataBindingUtil.inflate(inflater,R.layout.fragment_bai_thi,container,false)
         bd.lifecycleOwner = this
         bd.viewmodel=viewmodel
@@ -50,10 +49,10 @@ class Fragment_BaiThi : Fragment() {
                 bd.recyclerView.adapter=adapterRecycelView
             }
         })
-        val start = object :CountDownTimer(60000, 1000)
+        val start = object :CountDownTimer(10000, 1000)
         {
             override fun onFinish() {
-                textView2.text="00:00"
+                viewmodel.text.value="00:00"
                // viewmodel.cauDung.value=adapterRecycelView.socauDung.toString()
                 openDialog()
                 adapterRecycelView.boolean=true
@@ -97,3 +96,4 @@ class Fragment_BaiThi : Fragment() {
     }
 
 }
+

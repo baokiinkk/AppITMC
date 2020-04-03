@@ -1,30 +1,35 @@
 package com.example.applambaikiemtra.ui.boMon
 
-import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.applambaikiemtra.network.firestore
+import com.example.applambaikiemtra.data.db.model.BoMon
+import com.example.applambaikiemtra.data.api.firestore
+import com.example.applambaikiemtra.data.db.AppDao
+import com.example.applambaikiemtra.data.repository.Repository
 import kotlinx.coroutines.launch
 
-class ViewModel_BoMon(val firebase:firestore): ViewModel() {
+class ViewModel_BoMon(val repo:Repository): ViewModel() {
 
-        var list:MutableLiveData<MutableMap<String,String>> = MutableLiveData()
+        var list:MutableLiveData<MutableList<BoMon>> = MutableLiveData()
         var toLogin: MutableLiveData<Boolean?> = MutableLiveData(null)
         var tocheck: MutableLiveData<Boolean?> = MutableLiveData(null)
-        var test:String=""
-        fun listener()
+        var test:MutableLiveData<String> = MutableLiveData()
+         fun listener()
         {
-            loadData()
             toLogin.postValue(true)
         }
-        fun loadData()
+         fun loadData()
         {
-            viewModelScope.launch {
-                list.postValue(firebase.getSizeBoMon())
+           repo.loadDataBoMon {
+               list.postValue(it)
+           }
 
+        }
+        fun loadDatatoSQl()
+        {
+            repo.loadDataBoMonToSQL{
+                list.postValue(it)
             }
-
         }
     }

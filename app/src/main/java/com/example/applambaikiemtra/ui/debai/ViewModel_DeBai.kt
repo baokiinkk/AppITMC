@@ -1,38 +1,30 @@
 package com.example.applambaikiemtra.ui.debai
 
-import android.content.Context
-import android.widget.Toast
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.applambaikiemtra.network.firestore
-import kotlinx.coroutines.flow.flow
+import com.example.applambaikiemtra.data.db.model.DeThi
+import com.example.applambaikiemtra.data.api.firestore
+import com.example.applambaikiemtra.data.db.AppDao
+import com.example.applambaikiemtra.data.repository.Repository
 import kotlinx.coroutines.launch
 
-class ViewModel_DeBai(val firebase:firestore) :ViewModel() {
-    var list = mutableListOf<String>()
+class ViewModel_DeBai(val repo:Repository) :ViewModel() {
+    var list:MutableLiveData<MutableList<DeThi>> = MutableLiveData()
     var toLogin: MutableLiveData<Boolean?> = MutableLiveData(null)
     var tocheck: MutableLiveData<Boolean?> = MutableLiveData(null)
-    var test:String="Môn Toán"
-    fun loadData(bomon:String)
-    {
-        viewModelScope.launch {
-            var getdata = firebase.getSizeDeBai(bomon)
-            var flow: Long? = getdata["Số lượng đề"]
-            var temp :Int = list.size
-                if(temp < flow!!)
-                {
-                    for (i in temp..flow-1)
-                        list.add("Đề"+(i+1))
-                    tocheck.postValue(false)
-                }
-                else if(temp>flow)
-                {
-                    for(i in flow..temp)
-                        list.removeAt(list.size-1)
-                    tocheck.postValue(true)
-                }
-            }
-
+    var test: MutableLiveData<String> = MutableLiveData()
+    fun loadData(bomon: String) {
+        repo.loadDataDeThi(bomon){
+            list.postValue(it)
         }
     }
+    fun loadDatatoSQl(bomon: String)
+    {
+        repo.loadDataDeThiToSQL(bomon)
+        {
+            list.postValue(it)
+        }
+    }
+}
