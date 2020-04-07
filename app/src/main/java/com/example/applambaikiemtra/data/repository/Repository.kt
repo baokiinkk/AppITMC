@@ -5,12 +5,33 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.applambaikiemtra.data.api.firestore
 import com.example.applambaikiemtra.data.db.AppDao
+import com.example.applambaikiemtra.data.db.model.BaiThi
 import com.example.applambaikiemtra.data.db.model.BoMon
 import com.example.applambaikiemtra.data.db.model.DeThi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class Repository(val data: firestore,val dao: AppDao) {
+    //Bài thi
+    fun loadDataBaiThi(idDeThi: Int,x:(MutableList<BaiThi>)->Unit)
+    {
+        GlobalScope.launch {
+            x(dao.getBaiThi(idDeThi))
+        }
+    }
+    fun loadDataBaiThiToSQL(boMon: String,deThi: String,idDeThi: Int)
+    {
+        data.getBaiLam(boMon,deThi){ data->
+            GlobalScope.launch {
+                for (x in data)
+                {
+                        dao.addBaiThi(BaiThi(x["Câu hỏi"]!!,x["A"]!!,x["B"]!!,x["C"]!!,x["D"]!!,x["Đáp án"]!!,idDeThi))
+                }
+            }
+
+        }
+    }
+
     //BoMon
      fun loadDataBoMon(x:(MutableList<BoMon>)->Unit)
     {

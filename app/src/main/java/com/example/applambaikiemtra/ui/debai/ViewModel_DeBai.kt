@@ -27,4 +27,8 @@ class ViewModel_DeBai(val repo:Repository) :ViewModel() {
             list.postValue(it)
         }
     }
+    fun loadDataBaiThiToSQL(bomon: String,deThi: String,int: Int)
+    {
+        repo.loadDataBaiThiToSQL(bomon,deThi,int)
+    }
 }

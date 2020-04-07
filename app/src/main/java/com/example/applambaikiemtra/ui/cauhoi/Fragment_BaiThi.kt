@@ -41,11 +41,10 @@ class Fragment_BaiThi : Fragment() {
         getData()
         viewmodel.list.observe(viewLifecycleOwner, Observer {
             if(it == null)
-                Toast.makeText(context,"Rong",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,"Vui Lòng Tải đề Thi Để làm bài offline",Toast.LENGTH_SHORT).show()
             else
             {
                 adapterRecycelView=  AdapterRecycleView(viewmodel.list)
-               // val linearLayout: RecyclerView.LayoutManager = LinearLayoutManager(context!!,LinearLayoutManager.HORIZONTAL,false)
                 bd.recyclerView.adapter=adapterRecycelView
             }
         })
@@ -82,7 +81,7 @@ class Fragment_BaiThi : Fragment() {
     }
     fun getData()
     {
-        viewmodel.getData(args.mon,args.ten)
+        viewmodel.getData(args.idDeThi)
     }
     fun openDialog() {
 

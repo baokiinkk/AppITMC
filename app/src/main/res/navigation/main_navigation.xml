@@ -31,11 +31,8 @@
         android:label="Bài Thi"
         tools:layout="@layout/fragment_bai_thi">
         <argument
-            android:name="ten"
-            app:argType="string" />
-        <argument
-            android:name="mon"
-            app:argType="string" />
+            android:name="idDeThi"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/fragment_BoMon"

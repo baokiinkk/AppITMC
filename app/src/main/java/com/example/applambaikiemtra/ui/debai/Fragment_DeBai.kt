@@ -18,9 +18,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.NavigationUI
 import com.example.applambaikiemtra.databinding.FragmentDeBaiBinding
-import com.example.applambaikiemtra.ui.main.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -52,13 +50,25 @@ class Fragment_DeBai : Fragment() {
 
         viewModel.list.observe(viewLifecycleOwner, Observer {
             if(it!=null) {
-                adapterRecycelView = DeBaiAdapter {position->
-                    val actionToFinsh: NavDirections =
-                        Fragment_DeBaiDirections.toCauHoi(
-                            it.get(position).ten,
-                            args.mon
-                        )
-                    findNavController().navigate(actionToFinsh)
+                adapterRecycelView = DeBaiAdapter {position,chosse->
+
+                    if(chosse==1){
+                        val actionToFinsh: NavDirections =
+                            Fragment_DeBaiDirections.toCauHoi(
+                                it.get(position).id
+                            )
+                        findNavController().navigate(actionToFinsh)
+                    }
+                    else if(chosse == 2)
+                    {
+                        if(isConnected == true)
+                        {
+                            viewModel.loadDataBaiThiToSQL(args.mon,it.get(position).ten,it.get(position).id)
+                        }
+                        else
+                            Toast.makeText(context,"Bạn vui lòng kiểm tra lại đường truyền mạng!!",Toast.LENGTH_SHORT).show()
+                    }
+
                 }
                 val linearLayout: RecyclerView.LayoutManager = LinearLayoutManager(context!!)
                 bd.recyclerView.adapter = adapterRecycelView

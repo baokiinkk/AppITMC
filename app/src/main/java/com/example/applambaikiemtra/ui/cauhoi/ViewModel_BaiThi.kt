@@ -4,9 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.applambaikiemtra.data.api.firestore
+import com.example.applambaikiemtra.data.db.model.BaiThi
+import com.example.applambaikiemtra.data.repository.Repository
 import kotlinx.coroutines.launch
-class ViewModel_BaiThi(val firestore: firestore) :ViewModel() {
-    var list:MutableLiveData<MutableList<MutableMap<String,String>> > = MutableLiveData()
+class ViewModel_BaiThi(val rep:Repository) :ViewModel() {
+    var list:MutableLiveData<MutableList<BaiThi> > = MutableLiveData()
     val DeBai:MutableLiveData<String>? = null
     var check:MutableLiveData<Boolean> = MutableLiveData(false)
     var text:MutableLiveData<String> = MutableLiveData("Thời Gian")
@@ -16,10 +18,10 @@ class ViewModel_BaiThi(val firestore: firestore) :ViewModel() {
     {
         check.postValue(true)
     }
-    fun getData(bomon:String,debai:String)
+    fun getData(id:Int)
     {
-        viewModelScope.launch {
-               list.postValue(firestore.getBaiLam(bomon,debai))
+        rep.loadDataBaiThi(id){
+            list.postValue(it)
         }
     }
 }

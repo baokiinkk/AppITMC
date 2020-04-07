@@ -26,23 +26,13 @@ class firestore {
             }
 
     }
-    suspend fun getBaiLam(bomon: String,Debai:String) = suspendCancellableCoroutine<MutableList<MutableMap<String,String>>> { cont->
+    fun getBaiLam(bomon: String,Debai:String,onsuccess: (MutableList<MutableMap<String, String>>) -> Unit) {
         var list:MutableList<MutableMap<String,String>> = mutableListOf()
         root.collection(bomon).document(bomon).collection(Debai).get()
             .addOnSuccessListener {
                 for(x in it)
                     list.add(x.data as MutableMap<String, String>)
-                cont.resume(list)
+                onsuccess(list)
             }
     }
-
-    fun takeOffine()
-    {
-        val setting= FirebaseFirestoreSettings.Builder()
-            .setPersistenceEnabled(false)
-            .build()
-        root.firestoreSettings=setting
-    }
-
-
 }

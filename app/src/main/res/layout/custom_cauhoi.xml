@@ -20,11 +20,19 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:orientation="horizontal"
             app:cardCornerRadius="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/download"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/download" />
 
             <TextView
                 android:id="@+id/textView"
@@ -41,8 +49,8 @@
                 android:id="@+id/txtSoCau"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="200dp"
-                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="60dp"
                 android:text="40 câu"
                 android:textColor="#000"
                 android:textStyle="bold" />
@@ -51,11 +59,13 @@
                 android:id="@+id/txtThoiGian"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="270dp"
-                android:layout_marginTop="20dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="15dp"
                 android:text="30 phút"
                 android:textColor="#000"
                 android:textStyle="bold" />
+
 
         </androidx.cardview.widget.CardView>
 

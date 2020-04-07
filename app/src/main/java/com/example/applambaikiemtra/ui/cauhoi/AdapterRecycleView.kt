@@ -9,12 +9,14 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applambaikiemtra.R
+import com.example.applambaikiemtra.data.db.model.BaiThi
+import com.example.applambaikiemtra.data.db.model.DeThi
 import kotlinx.android.synthetic.main.custom_bai_thi.view.*
 import java.util.*
 
 
 
-class AdapterRecycleView(val list:MutableLiveData<MutableList<MutableMap<String,String>> >) :RecyclerView.Adapter<AdapterRecycleView.ViewHodel>() {
+class AdapterRecycleView(val list:MutableLiveData<MutableList<BaiThi>>) :RecyclerView.Adapter<AdapterRecycleView.ViewHodel>() {
     var boolean: Boolean=false
     val listLuuVitri:MutableList<Int> = mutableListOf()
     init {
@@ -61,11 +63,11 @@ class AdapterRecycleView(val list:MutableLiveData<MutableList<MutableMap<String,
 
     override fun onBindViewHolder(holder: ViewHodel, position: Int) {
         holder.txtCau.text="Câu "+(position+1)+" "
-        holder.txtCauHoi.text= list.value?.get(position)?.get("Câu hỏi")
-        val A =list.value?.get(position)?.get("A")
-        val B =list.value?.get(position)?.get("B")
-        val C =list.value?.get(position)?.get("C")
-        val D =list.value?.get(position)?.get("D")
+        holder.txtCauHoi.text= list.value?.get(position)?.cauhoi
+        val A =list.value?.get(position)?.A
+        val B =list.value?.get(position)?.B
+        val C =list.value?.get(position)?.C
+        val D =list.value?.get(position)?.D
         holder.btnA.text="A: "+ A
         holder.btnB.text="B: "+ B
         holder.btnC.text="C: "+ C
@@ -75,7 +77,7 @@ class AdapterRecycleView(val list:MutableLiveData<MutableList<MutableMap<String,
         {
             var vitriChon:Int=-1
             var vitriDapAn:Int=-1
-            var dapan: String? = list.value?.get(position)?.get("Đáp án")
+            var dapan: String? = list.value?.get(position)?.dapan
 
             if(A == dapan) vitriDapAn=1
             else if(B == dapan) vitriDapAn=2

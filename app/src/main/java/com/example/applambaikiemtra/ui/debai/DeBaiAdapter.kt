@@ -2,14 +2,16 @@ package com.example.applambaikiemtra.ui.debai
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applambaikiemtra.databinding.CustomCauhoiBinding
 import com.example.applambaikiemtra.data.db.model.DeThi
+import kotlinx.android.synthetic.main.custom_cauhoi.view.*
 
 
-class DeBaiAdapter(val setBaseClick:((Int)->Unit)) : ListAdapter<DeThi, DeBaiAdapter.ViewHodel>(DeBaiDiff()) {
+class DeBaiAdapter(val setBaseClick:((Int,Int)->Unit)) : ListAdapter<DeThi, DeBaiAdapter.ViewHodel>(DeBaiDiff()) {
 
 
     class ViewHodel(val binding:CustomCauhoiBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -20,13 +22,18 @@ class DeBaiAdapter(val setBaseClick:((Int)->Unit)) : ListAdapter<DeThi, DeBaiAda
                 return ViewHodel(binding)
             }
         }
-        fun bind(item:DeThi,baseClick:((Int)->Unit)?=null)
+        fun bind(item:DeThi,baseClick:((Int,Int)->Unit)?=null)
         {
             binding.item=item
             binding.executePendingBindings()
+            var chose=0
             baseClick?.let {click->
-                itemView.setOnClickListener{
-                    click(adapterPosition)
+                itemView.textView.setOnClickListener{
+                    click(adapterPosition,1)
+                }
+                itemView.download.setOnClickListener{
+                    itemView.download.isInvisible=true
+                    click(adapterPosition,2)
                 }
             }
         }
