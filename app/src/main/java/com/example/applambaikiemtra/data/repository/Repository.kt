@@ -59,6 +59,12 @@ class Repository(val data: firestore,val dao: AppDao) {
             }
     }
     //DeThi
+    fun updateDeThi(deThi: DeThi)
+    {
+        GlobalScope.launch {
+            dao.updateDeThi(deThi)
+        }
+    }
     fun loadDataDeThi(boMon: String,x:(MutableList<DeThi>)->Unit)
     {
         GlobalScope.launch {
@@ -77,7 +83,7 @@ class Repository(val data: firestore,val dao: AppDao) {
                     if(x.size > y.size)
                         for(i in y.size..x.size-1)
                         {
-                            dao.addDeThi(DeThi(ten=x[i],bomon = boMon))
+                            dao.addDeThi(DeThi(ten=x[i],bomon = boMon,isDown = false))
                         }
                 }
                 xx(dao.getDethi(boMon))

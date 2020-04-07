@@ -27,6 +27,8 @@ class DeBaiAdapter(val setBaseClick:((Int,Int)->Unit)) : ListAdapter<DeThi, DeBa
             binding.item=item
             binding.executePendingBindings()
             var chose=0
+            if(item.isDown == true)
+                itemView.download.isInvisible=true
             baseClick?.let {click->
                 itemView.textView.setOnClickListener{
                     click(adapterPosition,1)

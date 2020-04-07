@@ -12,7 +12,7 @@ class ViewModel_BaiThi(val rep:Repository) :ViewModel() {
     val DeBai:MutableLiveData<String>? = null
     var check:MutableLiveData<Boolean> = MutableLiveData(false)
     var text:MutableLiveData<String> = MutableLiveData("Thời Gian")
-    var cauDung:MutableLiveData<String> = MutableLiveData("0")
+    var cauDung:MutableLiveData<Int> = MutableLiveData(0)
     var checkdapan:MutableLiveData<Boolean> = MutableLiveData(false)
     fun listener()
     {

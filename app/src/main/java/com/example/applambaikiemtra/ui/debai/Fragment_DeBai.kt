@@ -53,17 +53,26 @@ class Fragment_DeBai : Fragment() {
                 adapterRecycelView = DeBaiAdapter {position,chosse->
 
                     if(chosse==1){
-                        val actionToFinsh: NavDirections =
-                            Fragment_DeBaiDirections.toCauHoi(
-                                it.get(position).id
-                            )
-                        findNavController().navigate(actionToFinsh)
+                        if(it[position].isDown == true)
+                        {
+                            val actionToFinsh: NavDirections =
+                                Fragment_DeBaiDirections.toCauHoi(
+                                    it.get(position).id
+                                )
+                            findNavController().navigate(actionToFinsh)
+                        }
+                        else
+                            Toast.makeText(context,"Bạn vui lòng kết nối mạng và tải dề thi để làm offline.xin cảm ơn",Toast.LENGTH_SHORT).show()
+
                     }
                     else if(chosse == 2)
                     {
                         if(isConnected == true)
                         {
                             viewModel.loadDataBaiThiToSQL(args.mon,it.get(position).ten,it.get(position).id)
+                            it[position].isDown=true
+                            viewModel.updateDeThiToSQL(it[position])
+                            Toast.makeText(context,"Tải hoàn tât",Toast.LENGTH_SHORT).show()
                         }
                         else
                             Toast.makeText(context,"Bạn vui lòng kiểm tra lại đường truyền mạng!!",Toast.LENGTH_SHORT).show()

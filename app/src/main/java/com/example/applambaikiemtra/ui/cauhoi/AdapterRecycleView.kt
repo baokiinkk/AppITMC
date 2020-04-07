@@ -3,25 +3,24 @@ package com.example.applambaikiemtra.ui.cauhoi
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.RadioButton
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applambaikiemtra.R
 import com.example.applambaikiemtra.data.db.model.BaiThi
-import com.example.applambaikiemtra.data.db.model.DeThi
 import kotlinx.android.synthetic.main.custom_bai_thi.view.*
-import java.util.*
 
 
 
 class AdapterRecycleView(val list:MutableLiveData<MutableList<BaiThi>>) :RecyclerView.Adapter<AdapterRecycleView.ViewHodel>() {
     var boolean: Boolean=false
+
     val listLuuVitri:MutableList<Int> = mutableListOf()
+    val vitridapan:MutableList<Int> = mutableListOf()
     init {
-        for (i in 0..(list.value?.size!!))
+        for (i in 0..(list.value?.size!!-1))
             listLuuVitri.add(-1)
+
     }
 
    inner class ViewHodel(v: View):RecyclerView.ViewHolder(v),View.OnClickListener
@@ -73,26 +72,29 @@ class AdapterRecycleView(val list:MutableLiveData<MutableList<BaiThi>>) :Recycle
         holder.btnC.text="C: "+ C
         holder.btnD.text="D: "+ D
 
+
+
+            var vitriDapAn= list.value?.get(position)?.dapan
+
+
         if(boolean ==true)
         {
-            var vitriChon:Int=-1
-            var vitriDapAn:Int=-1
-            var dapan: String? = list.value?.get(position)?.dapan
-
-            if(A == dapan) vitriDapAn=1
-            else if(B == dapan) vitriDapAn=2
-            else if(C == dapan) vitriDapAn=3
-            else  vitriDapAn=4
-
             if(listLuuVitri[position] == 1)
                 holder.btnA.isChecked=true
             else if(listLuuVitri[position] == 2)
                 holder.btnB.isChecked=true
             else if(listLuuVitri[position]== 3)
                 holder.btnC.isChecked=true
-            else
+            else if(listLuuVitri[position] == 4)
                 holder.btnD.isChecked=true
-            check(holder.btnA,holder.btnB,holder.btnC,holder.btnD,vitriDapAn,listLuuVitri[position])
+            else
+            {
+                holder.btnA.isChecked=false
+                holder.btnB.isChecked=false
+                holder.btnC.isChecked=false
+                holder.btnD.isChecked=false
+            }
+            check(holder.btnA,holder.btnB,holder.btnC,holder.btnD, vitriDapAn!!,listLuuVitri[position])
         }
 
     }
@@ -105,21 +107,21 @@ class AdapterRecycleView(val list:MutableLiveData<MutableList<BaiThi>>) :Recycle
         btcD.setBackgroundResource(R.drawable.nocheck)
 
     }
-    fun toXanh(vitri:Int,btnA: RadioButton,btnB: RadioButton,btnC: RadioButton,btcD: RadioButton)
+    fun toXanh(vitri:String,btnA: RadioButton,btnB: RadioButton,btnC: RadioButton,btcD: RadioButton)
     {
-        if(vitri == 1)
+        if(vitri == "1")
         {
             btnA.setBackgroundResource(R.drawable.checked)
 
         }
-        else if(vitri == 2)
+        else if(vitri == "2")
         {
             btnB.setBackgroundResource(R.drawable.checked)
         }
-        else if(vitri == 3){
+        else if(vitri == "3"){
             btnC.setBackgroundResource(R.drawable.checked)
         }
-        else
+        else if(vitri == "4")
         {
             btcD.setBackgroundResource(R.drawable.checked)
         }
@@ -129,13 +131,15 @@ class AdapterRecycleView(val list:MutableLiveData<MutableList<BaiThi>>) :Recycle
         if(vitri == 1) btnA.setBackgroundResource(R.drawable.err)
         else if(vitri == 2) btnB.setBackgroundResource(R.drawable.err)
         else if(vitri == 3) btnC.setBackgroundResource(R.drawable.err)
-        else   btcD.setBackgroundResource(R.drawable.err)
+        else if(vitri == 4)  btcD.setBackgroundResource(R.drawable.err)
     }
-    fun check(btnA:RadioButton,btnB:RadioButton,btnC:RadioButton,btcD: RadioButton,dapan:Int,luachon:Int)
+    fun check(btnA:RadioButton,btnB:RadioButton,btnC:RadioButton,btcD: RadioButton,dapan:String,luachon:Int)
     {
         reset(btnA,btnB,btnC,btcD)
-        if(dapan == luachon || luachon == -1)
+        if(dapan == luachon.toString() || luachon == -1)
+        {
             toXanh(dapan,btnA,btnB,btnC,btcD)
+        }
         else
         {
             toDo(luachon,btnA,btnB,btnC,btcD)

@@ -31,4 +31,8 @@ class ViewModel_DeBai(val repo:Repository) :ViewModel() {
     {
         repo.loadDataBaiThiToSQL(bomon,deThi,int)
     }
+    fun updateDeThiToSQL(deThi: DeThi)
+    {
+        repo.updateDeThi(deThi)
+    }
 }

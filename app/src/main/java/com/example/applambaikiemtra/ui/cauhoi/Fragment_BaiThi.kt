@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +31,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class Fragment_BaiThi : Fragment() {
     val viewmodel:ViewModel_BaiThi by viewModel<ViewModel_BaiThi>()
     val args :Fragment_BaiThiArgs by navArgs()
+    var x:Int=0
+    var boolean=true
     lateinit var adapterRecycelView: AdapterRecycleView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +56,8 @@ class Fragment_BaiThi : Fragment() {
             override fun onFinish() {
                 viewmodel.text.value="00:00"
                // viewmodel.cauDung.value=adapterRecycelView.socauDung.toString()
+//                Toast.makeText(context,adapterRecycelView.vitridapan.toString(),Toast.LENGTH_SHORT).show()
+
                 openDialog()
                 adapterRecycelView.boolean=true
                 adapterRecycelView.notifyDataSetChanged()
@@ -84,12 +89,20 @@ class Fragment_BaiThi : Fragment() {
         viewmodel.getData(args.idDeThi)
     }
     fun openDialog() {
+        var dem=0
+        var x=adapterRecycelView.listLuuVitri
+        for(i in 0..x.size-1){
+            if(x[i].toString() == viewmodel.list.value?.get(i)?.dapan)
+                dem++
+            //Toast.makeText(context, viewmodel.list.value?.get(1)?.dapan+"-"x[i],Toast.LENGTH_SHORT).show()
+        }
 
         val dialog: Dialog=Dialog(context!!)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCanceledOnTouchOutside(false)
         dialog.setContentView(R.layout.dialog)
-        dialog.soCau.text=viewmodel.cauDung.value+"/"+ viewmodel.list.value!!.size
+        dialog.soCau.text=dem.toString()+"/"+ viewmodel.list.value!!.size.toString()+" Câu"
+        dialog.diem.text=((dem*10)/viewmodel.list.value!!.size).toString()
         dialog.button.setOnClickListener { dialog.cancel() }
         dialog.show()
     }
