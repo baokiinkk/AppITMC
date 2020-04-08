@@ -15,15 +15,9 @@ class ViewModel_DeBai(val repo:Repository) :ViewModel() {
     var toLogin: MutableLiveData<Boolean?> = MutableLiveData(null)
     var tocheck: MutableLiveData<Boolean?> = MutableLiveData(null)
     var test: MutableLiveData<String> = MutableLiveData()
+    var listSoCau:MutableLiveData<Int> = MutableLiveData()
     fun loadData(bomon: String) {
         repo.loadDataDeThi(bomon){
-            list.postValue(it)
-        }
-    }
-    fun loadDatatoSQl(bomon: String)
-    {
-        repo.loadDataDeThiToSQL(bomon)
-        {
             list.postValue(it)
         }
     }

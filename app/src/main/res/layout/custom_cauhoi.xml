@@ -9,65 +9,139 @@
             type="com.example.applambaikiemtra.data.db.model.DeThi" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="70dp">
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            app:cardCornerRadius="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <Button
-                android:id="@+id/download"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="right"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/download" />
-
-            <TextView
-                android:id="@+id/textView"
+            app:cardCornerRadius="15dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingLeft="20dp"
-                android:text="@{item.ten}"
-                android:textColor="#65C5F0"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/txtSoCau"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="60dp"
-                android:text="40 câu"
-                android:textColor="#000"
-                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/txtThoiGian"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginRight="60dp"
-                android:layout_marginTop="15dp"
-                android:text="30 phút"
-                android:textColor="#000"
-                android:textStyle="bold" />
+                <Button
+                    android:id="@+id/download"
+                    android:layout_width="33dp"
+                    android:layout_height="39dp"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/download"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@{item.ten}"
+                    android:textColor="#65C5F0"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toStartOf="@+id/download"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtSoCau"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="80dp"
+                    android:layout_marginBottom="15dp"
+                    android:drawableLeft="@drawable/so_cau"
+                    android:drawablePadding="2dp"
+                    android:text="40 câu"
+                    android:textColor="#CC000000"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/txtSoCauLamDuoc"
+                    app:layout_constraintStart_toEndOf="@+id/txtThoiGian"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                <TextView
+                    android:id="@+id/txtSoCauLamDuoc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:drawableLeft="@drawable/right"
+                    android:drawablePadding="2dp"
+                    android:textColor="#CC000000"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/download"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                <TextView
+                    android:id="@+id/txtThoiGian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="15dp"
+                    android:drawableLeft="@drawable/times"
+                    android:drawablePadding="2dp"
+                    android:text="30 phút"
+                    android:textColor="#CC000000"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                <Button
+                    android:id="@+id/btnThiLai"
+                    android:layout_width="194dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/backround_button"
+                    android:text="XEM LẠI"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSoCau"
+                    app:layout_constraintVertical_bias="0.53" />
+
+                <io.netopen.hotbitmapgg.library.view.RingProgressBar
+                    android:id="@+id/progressbar"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textView"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.04"
+                    app:max="100"
+                    app:ringColor="@android:color/darker_gray"
+                    app:ringProgressColor="@color/colorPrimary"
+                    app:ringWidth="6dp"
+                    app:style="STROKE"
+                    app:textColor="@color/colorPrimary"
+                    app:textIsShow="true"
+                    app:textSize="16sp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

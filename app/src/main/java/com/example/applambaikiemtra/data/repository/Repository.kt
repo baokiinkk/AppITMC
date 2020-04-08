@@ -13,6 +13,12 @@ import kotlinx.coroutines.launch
 
 class Repository(val data: firestore,val dao: AppDao) {
     //Bài thi
+    fun updateBaiThi(baiThi: BaiThi)
+    {
+        GlobalScope.launch {
+            dao.updateBaiThi(baiThi)
+        }
+    }
     fun loadDataBaiThi(idDeThi: Int,x:(MutableList<BaiThi>)->Unit)
     {
         GlobalScope.launch {
@@ -25,10 +31,16 @@ class Repository(val data: firestore,val dao: AppDao) {
             GlobalScope.launch {
                 for (x in data)
                 {
-                        dao.addBaiThi(BaiThi(x["Câu hỏi"]!!,x["A"]!!,x["B"]!!,x["C"]!!,x["D"]!!,x["Đáp án"]!!,idDeThi))
+                    dao.addBaiThi(BaiThi(x["Câu hỏi"]!!,x["A"]!!,x["B"]!!,x["C"]!!,x["D"]!!,x["Đáp án"]!!,idDeThi))
                 }
             }
 
+        }
+    }
+    fun getSizeBaiThiOnline(boMon: String,deThi: String,x:(Int)->Unit)
+    {
+        data.getBaiLam(boMon,deThi){
+            x(it.size)
         }
     }
 
@@ -71,7 +83,7 @@ class Repository(val data: firestore,val dao: AppDao) {
             x(dao.getDethi(boMon))
         }
     }
-    fun loadDataDeThiToSQL(boMon: String,xx:(MutableList<DeThi>)->Unit)
+    fun loadDataDeThiToSQL(boMon: String)
     {
         data.getSizeDeBai(boMon){
             val x=it.values.toMutableList()
@@ -83,10 +95,14 @@ class Repository(val data: firestore,val dao: AppDao) {
                     if(x.size > y.size)
                         for(i in y.size..x.size-1)
                         {
-                            dao.addDeThi(DeThi(ten=x[i],bomon = boMon,isDown = false))
+                            data.getBaiLam(boMon,x[i]){
+                                GlobalScope.launch {
+                                    dao.addDeThi(DeThi(ten=x[i],bomon = boMon,isDown = false,socau = it.size,socaulamdung = 0))
+                                }
+                            }
+
                         }
                 }
-                xx(dao.getDethi(boMon))
             }
 
         }

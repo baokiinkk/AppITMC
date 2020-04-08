@@ -51,6 +51,7 @@ class Fragment_BoMon : Fragment() {
         viewModel.list.observe(viewLifecycleOwner, Observer {
                 if(it != null)
                 {
+
                     viewModel.test.value= it.size.toString()+" item"
 
                     listAdapter= BoMonAdapter { position ->
@@ -63,10 +64,10 @@ class Fragment_BoMon : Fragment() {
                     bd.recyclerView.adapter=listAdapter
                     bd.recyclerView.layoutManager=linearLayout
 
-
-
-
-
+                    for(x in it)
+                    {
+                        viewModel.loadDataDeThitoSQl(x.tenBoMon)
+                    }
                  }
             }
         )

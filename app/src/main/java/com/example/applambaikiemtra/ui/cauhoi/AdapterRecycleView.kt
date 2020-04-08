@@ -16,7 +16,6 @@ class AdapterRecycleView(val list:MutableLiveData<MutableList<BaiThi>>) :Recycle
     var boolean: Boolean=false
 
     val listLuuVitri:MutableList<Int> = mutableListOf()
-    val vitridapan:MutableList<Int> = mutableListOf()
     init {
         for (i in 0..(list.value?.size!!-1))
             listLuuVitri.add(-1)

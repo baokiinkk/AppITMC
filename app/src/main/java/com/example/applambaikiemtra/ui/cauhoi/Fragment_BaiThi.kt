@@ -4,11 +4,8 @@ package com.example.applambaikiemtra.ui.cauhoi
 import android.app.Dialog
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -19,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applambaikiemtra.R
+import com.example.applambaikiemtra.data.db.model.DeThi
 import com.example.applambaikiemtra.databinding.FragmentBaiThiBinding
 import kotlinx.android.synthetic.main.dialog.*
 import kotlinx.android.synthetic.main.fragment_bai_thi.*
@@ -96,10 +94,12 @@ class Fragment_BaiThi : Fragment() {
                 dem++
             //Toast.makeText(context, viewmodel.list.value?.get(1)?.dapan+"-"x[i],Toast.LENGTH_SHORT).show()
         }
-
+        viewmodel.updateDeThi(DeThi(args.idDeThi,args.tenDeThi,args.mon,true,dem,viewmodel.list.value!!.size))
         val dialog: Dialog=Dialog(context!!)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCanceledOnTouchOutside(false)
+        dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.setContentView(R.layout.dialog)
         dialog.soCau.text=dem.toString()+"/"+ viewmodel.list.value!!.size.toString()+" Câu"
         dialog.diem.text=((dem*10)/viewmodel.list.value!!.size).toString()

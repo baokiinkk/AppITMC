@@ -33,6 +33,12 @@
         <argument
             android:name="idDeThi"
             app:argType="integer" />
+        <argument
+            android:name="tenDeThi"
+            app:argType="string" />
+        <argument
+            android:name="mon"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragment_BoMon"

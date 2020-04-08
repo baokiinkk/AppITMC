@@ -41,15 +41,11 @@ class Fragment_DeBai : Fragment() {
         val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
         val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
-        if(isConnected == true)
-        {
-            viewModel.loadDatatoSQl(args.mon)
-        }
-        else
-            viewModel.loadData(args.mon)
+        viewModel.loadData(args.mon)
 
         viewModel.list.observe(viewLifecycleOwner, Observer {
             if(it!=null) {
+
                 adapterRecycelView = DeBaiAdapter {position,chosse->
 
                     if(chosse==1){
@@ -57,7 +53,7 @@ class Fragment_DeBai : Fragment() {
                         {
                             val actionToFinsh: NavDirections =
                                 Fragment_DeBaiDirections.toCauHoi(
-                                    it.get(position).id
+                                    it.get(position).id,it[position].ten,it[position].bomon
                                 )
                             findNavController().navigate(actionToFinsh)
                         }
@@ -79,10 +75,12 @@ class Fragment_DeBai : Fragment() {
                     }
 
                 }
+
                 val linearLayout: RecyclerView.LayoutManager = LinearLayoutManager(context!!)
                 bd.recyclerView.adapter = adapterRecycelView
                 bd.recyclerView.layoutManager = linearLayout
                 adapterRecycelView.submitList(it)
+
             }
         })
 
