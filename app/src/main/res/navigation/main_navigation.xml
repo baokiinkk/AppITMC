@@ -39,6 +39,12 @@
         <argument
             android:name="mon"
             app:argType="string" />
+        <argument
+            android:name="check"
+            app:argType="boolean" />
+        <argument
+            android:name="listChon"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragment_BoMon"

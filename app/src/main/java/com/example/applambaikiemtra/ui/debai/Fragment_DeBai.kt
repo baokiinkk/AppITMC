@@ -35,7 +35,7 @@ class Fragment_DeBai : Fragment() {
         val bd:FragmentDeBaiBinding=DataBindingUtil.inflate(inflater,R.layout.fragment__de_bai,container,false)
         bd.lifecycleOwner = this
         bd.viewmodel=viewModel
-        viewModel.test.value="Môn"+args.mon
+        viewModel.test.value="Môn "+args.mon
 
         // load data
         val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
@@ -53,7 +53,7 @@ class Fragment_DeBai : Fragment() {
                         {
                             val actionToFinsh: NavDirections =
                                 Fragment_DeBaiDirections.toCauHoi(
-                                    it.get(position).id,it[position].ten,it[position].bomon
+                                    it.get(position).id,it[position].ten,it[position].bomon,false,"0000000000000000000000000000000000000000000000000"
                                 )
                             findNavController().navigate(actionToFinsh)
                         }
@@ -72,6 +72,14 @@ class Fragment_DeBai : Fragment() {
                         }
                         else
                             Toast.makeText(context,"Bạn vui lòng kiểm tra lại đường truyền mạng!!",Toast.LENGTH_SHORT).show()
+                    }
+                    else if(chosse == 3)
+                    {
+                        val actionToFinsh: NavDirections =
+                            Fragment_DeBaiDirections.toCauHoi(
+                                it.get(position).id,it[position].ten,it[position].bomon,true,it.get(position).list
+                            )
+                        findNavController().navigate(actionToFinsh)
                     }
 
                 }

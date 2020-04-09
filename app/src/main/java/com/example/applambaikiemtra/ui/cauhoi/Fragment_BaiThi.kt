@@ -1,9 +1,11 @@
 package com.example.applambaikiemtra.ui.cauhoi
 
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.applambaikiemtra.R
 import com.example.applambaikiemtra.data.db.model.DeThi
 import com.example.applambaikiemtra.databinding.FragmentBaiThiBinding
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.dialog.*
 import kotlinx.android.synthetic.main.fragment_bai_thi.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -29,9 +32,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class Fragment_BaiThi : Fragment() {
     val viewmodel:ViewModel_BaiThi by viewModel<ViewModel_BaiThi>()
     val args :Fragment_BaiThiArgs by navArgs()
-    var x:Int=0
-    var boolean=true
     lateinit var adapterRecycelView: AdapterRecycleView
+    @SuppressLint("ResourceType")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,39 +47,50 @@ class Fragment_BaiThi : Fragment() {
                 Toast.makeText(context,"Vui Lòng Tải đề Thi Để làm bài offline",Toast.LENGTH_SHORT).show()
             else
             {
-                adapterRecycelView=  AdapterRecycleView(viewmodel.list)
+                adapterRecycelView=  AdapterRecycleView(viewmodel.list,args.listChon)
                 bd.recyclerView.adapter=adapterRecycelView
+                TabLayoutMediator(
+                    bd.tablayout,bd.recyclerView, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+                        tab.text=(position+1).toString()
+                    }
+                ).attach()
             }
-        })
-        val start = object :CountDownTimer(10000, 1000)
-        {
-            override fun onFinish() {
-                viewmodel.text.value="00:00"
-               // viewmodel.cauDung.value=adapterRecycelView.socauDung.toString()
+            val start = object :CountDownTimer(20000, 1000)
+            {
+                override fun onFinish() {
+                    viewmodel.text.value="00:00"
+                    // viewmodel.cauDung.value=adapterRecycelView.socauDung.toString()
 //                Toast.makeText(context,adapterRecycelView.vitridapan.toString(),Toast.LENGTH_SHORT).show()
+                    if(args.check ==false)
+                        openDialog()
+                    adapterRecycelView.boolean=true
+                    adapterRecycelView.notifyDataSetChanged()
+                }
 
-                openDialog()
-                adapterRecycelView.boolean=true
-                adapterRecycelView.notifyDataSetChanged()
+                override fun onTick(millisUntilFinished: Long) {
+                    var phut: Long =millisUntilFinished/60000
+                    var giay:Long=(millisUntilFinished/1000)%60
+                    viewmodel.text.value=phut.toString()+":"+giay.toString()
+                }
+
             }
-
-            override fun onTick(millisUntilFinished: Long) {
-                var phut: Long =millisUntilFinished/60000
-                var giay:Long=(millisUntilFinished/1000)%60
-                viewmodel.text.value=phut.toString()+":"+giay.toString()
-            }
-
-        }.start()
-        viewmodel.check.observe(viewLifecycleOwner, Observer {
-            if(it == true)
+            if(args.check == true)
             {
                 start.onFinish()
-                start.cancel()
-                textView2.isEnabled=false
-
             }
+            else start.start()
+            viewmodel.check.observe(viewLifecycleOwner, Observer {
+                if(it == true)
+                {
+                    start.onFinish()
+                    start.cancel()
+                    textView2.isEnabled=false
 
+                }
+
+            })
         })
+
 
 
         return bd.root
@@ -89,12 +102,14 @@ class Fragment_BaiThi : Fragment() {
     fun openDialog() {
         var dem=0
         var x=adapterRecycelView.listLuuVitri
+        Log.d("ssssssssss",x.toString())
+        var updateListChon:String=""
         for(i in 0..x.size-1){
             if(x[i].toString() == viewmodel.list.value?.get(i)?.dapan)
                 dem++
-            //Toast.makeText(context, viewmodel.list.value?.get(1)?.dapan+"-"x[i],Toast.LENGTH_SHORT).show()
+            updateListChon+=x[i]
         }
-        viewmodel.updateDeThi(DeThi(args.idDeThi,args.tenDeThi,args.mon,true,dem,viewmodel.list.value!!.size))
+        viewmodel.updateDeThi(DeThi(args.idDeThi,args.tenDeThi,args.mon,true,dem,viewmodel.list.value!!.size,updateListChon))
         val dialog: Dialog=Dialog(context!!)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCanceledOnTouchOutside(false)

@@ -42,7 +42,7 @@ class DeBaiAdapter(val setBaseClick:((Int,Int)->Unit)) : ListAdapter<DeThi, DeBa
             else
             {
                 itemView.txtSoCauLamDuoc.visibility=View.VISIBLE
-                itemView.txtSoCauLamDuoc.text = item.socaulamdung.toString()+" câu đúng"
+                itemView.txtSoCauLamDuoc.text = item.socaulamdung.toString()+" đúng"
                 itemView.btnThiLai.visibility=View.VISIBLE
             }
 
@@ -53,6 +53,9 @@ class DeBaiAdapter(val setBaseClick:((Int,Int)->Unit)) : ListAdapter<DeThi, DeBa
                 itemView.download.setOnClickListener{
                     itemView.download.isInvisible=true
                     click(adapterPosition,2)
+                }
+                itemView.btnThiLai.setOnClickListener {
+                    click(adapterPosition,3)
                 }
             }
         }

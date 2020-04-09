@@ -97,7 +97,7 @@ class Repository(val data: firestore,val dao: AppDao) {
                         {
                             data.getBaiLam(boMon,x[i]){
                                 GlobalScope.launch {
-                                    dao.addDeThi(DeThi(ten=x[i],bomon = boMon,isDown = false,socau = it.size,socaulamdung = 0))
+                                    dao.addDeThi(DeThi(ten=x[i],bomon = boMon,isDown = false,socau = it.size,socaulamdung = 0,list = "00000000000000000000000000000000000000000000000000000000000000000000000000000000000"))
                                 }
                             }
 

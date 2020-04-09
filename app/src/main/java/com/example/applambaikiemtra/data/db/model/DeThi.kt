@@ -5,4 +5,4 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class DeThi(@PrimaryKey(autoGenerate = true) val id:Int=0, val ten:String, val bomon:String,
-                 var isDown:Boolean,val socaulamdung:Int,val socau:Int)
+                 var isDown:Boolean,val socaulamdung:Int,val socau:Int,val list:String)
