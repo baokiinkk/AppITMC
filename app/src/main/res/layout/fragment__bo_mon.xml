@@ -12,14 +12,29 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="?attr/actionBarSize"
     android:orientation="vertical"
-    android:background="#2D3A7E"
+    android:background="@drawable/background_main"
+    android:layout_marginTop="?attr/actionBarSize"
     >
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView4"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:drawableLeft="@drawable/c"-->
+<!--        android:drawablePadding="20dp"-->
+<!--        android:layout_marginLeft="15dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:text="Chọn bộ môn"-->
+<!--        android:textColor="#fff"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold" />-->
+
     <Button
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="UPDATE"
         android:textStyle="bold"
         android:textSize="30sp"
@@ -59,6 +74,7 @@
             android:layout_marginTop="10dp" />
 
     </LinearLayout>
+
 
 </LinearLayout>
 

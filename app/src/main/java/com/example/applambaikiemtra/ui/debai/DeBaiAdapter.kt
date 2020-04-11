@@ -3,16 +3,12 @@ package com.example.applambaikiemtra.ui.debai
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applambaikiemtra.databinding.CustomCauhoiBinding
 import com.example.applambaikiemtra.data.db.model.DeThi
 import kotlinx.android.synthetic.main.custom_cauhoi.view.*
-import kotlinx.android.synthetic.main.dialog.view.*
 
 
 class DeBaiAdapter(val setBaseClick:((Int,Int)->Unit)) : ListAdapter<DeThi, DeBaiAdapter.ViewHodel>(DeBaiDiff()) {
@@ -30,8 +26,6 @@ class DeBaiAdapter(val setBaseClick:((Int,Int)->Unit)) : ListAdapter<DeThi, DeBa
         {
             binding.item=item
             binding.executePendingBindings()
-            if(item.isDown == true)
-                itemView.download.isInvisible=true
             var x=item.socaulamdung*100/ item.socau
             if(x == 0) x=1
             itemView.progressbar.progress=x
@@ -49,10 +43,6 @@ class DeBaiAdapter(val setBaseClick:((Int,Int)->Unit)) : ListAdapter<DeThi, DeBa
             baseClick?.let {click->
                 itemView.setOnClickListener{
                     click(adapterPosition,1)
-                }
-                itemView.download.setOnClickListener{
-                    itemView.download.isInvisible=true
-                    click(adapterPosition,2)
                 }
                 itemView.btnThiLai.setOnClickListener {
                     click(adapterPosition,3)

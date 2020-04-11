@@ -17,10 +17,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applambaikiemtra.R
-import com.example.applambaikiemtra.data.db.AppDao
+
 import com.example.applambaikiemtra.databinding.FragmentBoMonBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import androidx.core.content.ContextCompat.getSystemService
 
 
 /**

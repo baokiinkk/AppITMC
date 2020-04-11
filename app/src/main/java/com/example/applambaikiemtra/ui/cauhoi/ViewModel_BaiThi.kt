@@ -2,18 +2,14 @@ package com.example.applambaikiemtra.ui.cauhoi
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.applambaikiemtra.data.api.firestore
 import com.example.applambaikiemtra.data.db.model.BaiThi
 import com.example.applambaikiemtra.data.db.model.DeThi
 import com.example.applambaikiemtra.data.repository.Repository
-import kotlinx.coroutines.launch
 class ViewModel_BaiThi(val rep:Repository) :ViewModel() {
     var list:MutableLiveData<MutableList<BaiThi> > = MutableLiveData()
-    val DeBai:MutableLiveData<String>? = null
     var check:MutableLiveData<Boolean> = MutableLiveData(false)
     var text:MutableLiveData<String> = MutableLiveData("Thời Gian")
-    var checkdapan:MutableLiveData<Boolean> = MutableLiveData(false)
+    var title:String=""
     fun listener()
     {
         check.postValue(true)
@@ -27,6 +23,13 @@ class ViewModel_BaiThi(val rep:Repository) :ViewModel() {
     fun updateDeThi(deThi:DeThi)
     {
         rep.updateDeThi(deThi)
+    }
+    fun loadBaiThiToSQL(boMon:String,deThi:String,idDeThi:Int)
+    {
+        rep.loadDataBaiThiToSQL(boMon,deThi,idDeThi)
+        {
+            list.postValue(it)
+        }
     }
 }
 

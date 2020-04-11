@@ -25,7 +25,7 @@ class Repository(val data: firestore,val dao: AppDao) {
             x(dao.getBaiThi(idDeThi))
         }
     }
-    fun loadDataBaiThiToSQL(boMon: String,deThi: String,idDeThi: Int)
+    fun loadDataBaiThiToSQL(boMon: String,deThi: String,idDeThi: Int,x:(MutableList<BaiThi>)->Unit)
     {
         data.getBaiLam(boMon,deThi){ data->
             GlobalScope.launch {
@@ -33,6 +33,7 @@ class Repository(val data: firestore,val dao: AppDao) {
                 {
                     dao.addBaiThi(BaiThi(x["Câu hỏi"]!!,x["A"]!!,x["B"]!!,x["C"]!!,x["D"]!!,x["Đáp án"]!!,idDeThi))
                 }
+                x(dao.getBaiThi(idDeThi))
             }
 
         }
@@ -97,7 +98,7 @@ class Repository(val data: firestore,val dao: AppDao) {
                         {
                             data.getBaiLam(boMon,x[i]){
                                 GlobalScope.launch {
-                                    dao.addDeThi(DeThi(ten=x[i],bomon = boMon,isDown = false,socau = it.size,socaulamdung = 0,list = "00000000000000000000000000000000000000000000000000000000000000000000000000000000000"))
+                                    dao.addDeThi(DeThi(ten=x[i],bomon = boMon,socau = it.size,socaulamdung = 0,list = "00000000000000000000000000000000000000000000000000000000000000000000000000000000000"))
                                 }
                             }
 
