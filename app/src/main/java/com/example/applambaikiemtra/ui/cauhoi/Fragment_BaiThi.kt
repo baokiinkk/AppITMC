@@ -32,6 +32,7 @@ class Fragment_BaiThi : Fragment() {
     val viewmodel:ViewModel_BaiThi by viewModel<ViewModel_BaiThi>()
     val args :Fragment_BaiThiArgs by navArgs()
     lateinit var adapterRecycelView: AdapterRecycleView
+    var start:CountDownTimer? = null
     @SuppressLint("ResourceType")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +68,7 @@ class Fragment_BaiThi : Fragment() {
                     }
                 ).attach()
             }
-            val start = object :CountDownTimer(20000, 1000)
+            start = object :CountDownTimer(20000, 1000)
             {
                 override fun onFinish() {
                     viewmodel.text.value="00:00"
@@ -86,14 +87,14 @@ class Fragment_BaiThi : Fragment() {
             }
             if(args.check == true)
             {
-                start.onFinish()
+                (start as CountDownTimer).onFinish()
             }
-            else start.start()
+            else (start as CountDownTimer).start()
             viewmodel.check.observe(viewLifecycleOwner, Observer {
                 if(it == true)
                 {
-                    start.onFinish()
-                    start.cancel()
+                    (start as CountDownTimer).onFinish()
+                    (start as CountDownTimer).cancel()
                     textView2.isEnabled=false
 
                 }
@@ -130,6 +131,11 @@ class Fragment_BaiThi : Fragment() {
         dialog.diem.text=((dem*10)/viewmodel.list.value!!.size).toString()
         dialog.button.setOnClickListener { dialog.cancel() }
         dialog.show()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        start?.cancel()
     }
 
 }

@@ -32,6 +32,7 @@ class DeBaiAdapter(val setBaseClick:((Int,Int)->Unit)) : ListAdapter<DeThi, DeBa
             itemView.txtSoCau.text= item.socau.toString() +" câu"
             if(item.socaulamdung == 0) {
                 itemView.txtSoCauLamDuoc.visibility=View.INVISIBLE
+                itemView.btnThiLai.visibility=View.GONE
             }
             else
             {
