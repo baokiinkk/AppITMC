@@ -14,19 +14,20 @@ class ViewModel_BaiThi(val rep:Repository) :ViewModel() {
     {
         check.postValue(true)
     }
-    fun getData(id:Int)
+    fun getData(id:String)
     {
         rep.loadDataBaiThi(id){
             list.postValue(it)
         }
+
     }
     fun updateDeThi(deThi:DeThi)
     {
         rep.updateDeThi(deThi)
     }
-    fun loadBaiThiToSQL(boMon:String,deThi:String,idDeThi:Int)
+    fun loadBaiThiToSQL(boMon:String,deThi:String)
     {
-        rep.loadDataBaiThiToSQL(boMon,deThi,idDeThi)
+        rep.loadDataBaiThiToSQL(boMon,deThi)
         {
             list.postValue(it)
         }

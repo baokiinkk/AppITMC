@@ -41,8 +41,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_danhgia->
                 {
                     val intent:Intent= Intent(Intent.ACTION_SEND);
-                    intent.setType("message/rfc822")
+                    intent.setType("text/plain");
                     intent.putExtra(Intent.EXTRA_EMAIL,"baokiinkk@gmail.com")
+                    intent.putExtra(Intent.EXTRA_CC,"baokiinkk@gmail.com")
                     intent.putExtra(Intent.EXTRA_SUBJECT,"-Phản Hồi Đóng Góp Xây Dựng App:")
                     intent.putExtra(Intent.EXTRA_TEXT,"... ")
                     startActivity(Intent.createChooser(intent,"choose an email client"))

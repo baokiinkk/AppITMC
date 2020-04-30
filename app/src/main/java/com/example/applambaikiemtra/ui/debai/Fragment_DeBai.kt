@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applambaikiemtra.R
@@ -17,7 +18,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.applambaikiemtra.data.db.model.DeThi
 import com.example.applambaikiemtra.databinding.FragmentDeBaiBinding
+import kotlinx.android.synthetic.main.fragment__de_bai.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -44,13 +47,13 @@ class Fragment_DeBai : Fragment() {
 
         viewModel.list.observe(viewLifecycleOwner, Observer {
             if(it!=null) {
-
+                progressBar3.visibility=View.GONE
                 adapterRecycelView = DeBaiAdapter {position,chosse->
 
                     if(chosse==1){
                         val actionToFinsh: NavDirections =
                             Fragment_DeBaiDirections.toCauHoi(
-                                it.get(position).id,it[position].ten,it[position].bomon,
+                                it[position].ten,it[position].bomon,
                                 false,"0000000000000000000000000000000000000000000000000")
                                 findNavController().navigate(actionToFinsh)
                     }
@@ -59,7 +62,7 @@ class Fragment_DeBai : Fragment() {
                     {
                         val actionToFinsh: NavDirections =
                             Fragment_DeBaiDirections.toCauHoi(
-                                it.get(position).id,it[position].ten,it[position].bomon,true,it.get(position).list
+                                it[position].ten,it[position].bomon,true,it.get(position).list
                             )
                         findNavController().navigate(actionToFinsh)
                     }
@@ -69,6 +72,7 @@ class Fragment_DeBai : Fragment() {
                 val linearLayout: RecyclerView.LayoutManager = LinearLayoutManager(context!!)
                 bd.recyclerView.adapter = adapterRecycelView
                 bd.recyclerView.layoutManager = linearLayout
+                it.sortBy { it.ten }
                 adapterRecycelView.submitList(it)
 
             }

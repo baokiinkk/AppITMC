@@ -12,10 +12,10 @@
         <action
             android:id="@+id/toCauHoi"
             app:destination="@id/fragment_BaiThi"
-            app:enterAnim="@anim/fragment_close_enter"
-            app:exitAnim="@anim/fragment_close_exit"
-            app:popEnterAnim="@anim/fragment_open_enter"
-            app:popExitAnim="@anim/fragment_open_exit"
+            app:enterAnim="@transition/slide_in_right"
+            app:exitAnim="@transition/slide_out_left"
+            app:popEnterAnim="@transition/slide_in_left"
+            app:popExitAnim="@transition/slide_out_right"
             app:popUpTo="@+id/fragment_DeBai" />
         <argument
             android:name="mon"
@@ -23,6 +23,10 @@
         <action
             android:id="@+id/toback"
             app:destination="@id/fragment_BoMon"
+            app:enterAnim="@transition/slide_in_right"
+            app:exitAnim="@transition/slide_out_left"
+            app:popEnterAnim="@transition/slide_in_left"
+            app:popExitAnim="@transition/slide_out_right"
             app:popUpTo="@+id/fragment_BoMon" />
     </fragment>
     <fragment
@@ -30,9 +34,7 @@
         android:name="com.example.applambaikiemtra.ui.cauhoi.Fragment_BaiThi"
         android:label="Bài Thi"
         tools:layout="@layout/fragment_bai_thi">
-        <argument
-            android:name="idDeThi"
-            app:argType="integer" />
+
         <argument
             android:name="tenDeThi"
             app:argType="string" />
@@ -54,9 +56,9 @@
         <action
             android:id="@+id/toBai"
             app:destination="@id/fragment_DeBai"
-            app:enterAnim="@anim/fragment_close_enter"
-            app:exitAnim="@anim/fragment_close_exit"
-            app:popEnterAnim="@anim/fragment_open_enter"
-            app:popExitAnim="@anim/fragment_open_exit" />
+            app:enterAnim="@transition/slide_in_right"
+            app:exitAnim="@transition/slide_out_left"
+            app:popEnterAnim="@transition/slide_in_left"
+            app:popExitAnim="@transition/slide_out_right" />
     </fragment>
 </navigation>

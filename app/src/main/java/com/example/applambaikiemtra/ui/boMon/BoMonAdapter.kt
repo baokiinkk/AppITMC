@@ -10,7 +10,6 @@ import com.example.applambaikiemtra.data.db.model.BoMon
 
  class BoMonAdapter(val setBaseClick:((Int)->Unit)) :ListAdapter<BoMon,BoMonAdapter.ViewHodel>(MyDIff()) {
 
-
     class ViewHodel(val binding:CustomBoMonBinding) : RecyclerView.ViewHolder(binding.root) {
         companion object {
             fun from(parent: ViewGroup): ViewHodel {
