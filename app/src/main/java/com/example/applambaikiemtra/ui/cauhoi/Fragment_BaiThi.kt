@@ -114,6 +114,7 @@ class Fragment_BaiThi : Fragment() {
                     }
                 )
                 tabLayoutMediator!!.attach()
+
                 adapterRecycelView.notifyDataSetChanged()
             }
             start = object :CountDownTimer((it.size*50000).toLong(), 1000)
