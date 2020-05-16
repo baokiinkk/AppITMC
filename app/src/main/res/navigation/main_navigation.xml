@@ -47,6 +47,12 @@
         <argument
             android:name="listChon"
             app:argType="string" />
+        <action
+            android:id="@+id/comeback"
+            app:destination="@id/fragment_DeBai" />
+        <argument
+            android:name="caulamdung"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/fragment_BoMon"

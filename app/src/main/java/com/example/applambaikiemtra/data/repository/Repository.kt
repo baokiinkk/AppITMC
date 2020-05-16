@@ -1,5 +1,6 @@
 package com.example.applambaikiemtra.data.repository
 
+import android.util.Log
 import com.example.applambaikiemtra.data.api.firestore
 import com.example.applambaikiemtra.data.db.AppDao
 import com.example.applambaikiemtra.data.db.model.BaiThi
@@ -15,6 +16,12 @@ class Repository(val data: firestore,val dao: AppDao) {
     {
         GlobalScope.launch {
             x(dao.getBaiThi(idDeThi))
+    }
+    }
+    fun getDataBaiThi(idDeThi: String,x:(Int)->Unit)
+    {
+        GlobalScope.launch {
+            x(dao.getBaiThi(idDeThi).size)
         }
     }
     fun loadDataBaiThiToSQL(boMon: String,deThi: String,x:(MutableList<BaiThi>)->Unit)
@@ -29,12 +36,6 @@ class Repository(val data: firestore,val dao: AppDao) {
                 x(dao.getBaiThi(deThi))
             }
 
-        }
-    }
-    fun getSizeBaiThiOnline(boMon: String,deThi: String,x:(Int)->Unit)
-    {
-        data.getBaiLam(boMon,deThi){
-            x(it.size)
         }
     }
 
@@ -76,7 +77,10 @@ class Repository(val data: firestore,val dao: AppDao) {
                 for(x in it){
                     data.getBaiLam(boMon,x.value){
                         GlobalScope.launch {
-                            dao.addDeThi(DeThi(ten=x.value,bomon = boMon,socau = it.size,socaulamdung = 0,list = "00000000000000000000000000000000000000000000000000000000000000000000000000000000000"))
+                            var list=""
+                            for(i in 0.. it.size)
+                                list+="0"
+                            dao.addDeThi(DeThi(ten=x.value,bomon = boMon,socau = it.size,socaulamdung = 0,list = list,socausql = 0))
                            val dethi:DeThi= dao.getDethiS(x.value)
                             dethi.socau=it.size
                             dao.updateDeThi(dethi)

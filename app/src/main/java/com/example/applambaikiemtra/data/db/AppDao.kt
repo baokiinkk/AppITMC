@@ -43,4 +43,5 @@ interface AppDao {
 
     @Query("select * from BaiThi Where BaiThi.DeThiID=:idDeThi")
     suspend fun getBaiThi(idDeThi: String): MutableList<BaiThi>
+
 }

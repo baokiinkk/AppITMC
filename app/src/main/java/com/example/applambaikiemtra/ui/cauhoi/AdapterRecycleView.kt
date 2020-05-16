@@ -1,6 +1,5 @@
 package com.example.applambaikiemtra.ui.cauhoi
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import kotlinx.android.synthetic.main.custom_bai_thi.view.A
 import kotlinx.android.synthetic.main.custom_bai_thi.view.B
 import kotlinx.android.synthetic.main.custom_bai_thi.view.C
 import kotlinx.android.synthetic.main.custom_bai_thi.view.D
-import kotlinx.android.synthetic.main.custom_bai_thi.view.txtCau
 import kotlinx.android.synthetic.main.custom_bai_thi.view.txtCauHoi
 
 import java.util.jar.Attributes
@@ -58,7 +56,6 @@ class AdapterRecycleView(val list:MutableLiveData<MutableList<BaiThi>>,listchon:
             }
         }
 
-        val txtCau=v.txtCau
         val txtCauHoi=v.txtCauHoi
         val btnA=v.A
         val btnB=v.B
@@ -87,7 +84,6 @@ class AdapterRecycleView(val list:MutableLiveData<MutableList<BaiThi>>,listchon:
     }
 
     override fun onBindViewHolder(holder: ViewHodel, position: Int) {
-        holder.txtCau.text="Câu "+(position+1)+" "
         holder.txtCauHoi.text= list.value?.get(position)?.cauhoi
         val A =list.value?.get(position)?.A
         val B =list.value?.get(position)?.B

@@ -12,13 +12,18 @@ import android.os.CountDownTimer
 import android.view.*
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.applambaikiemtra.R
 import com.example.applambaikiemtra.data.db.model.DeThi
 import com.example.applambaikiemtra.databinding.FragmentBaiThiBinding
+import com.example.applambaikiemtra.ui.boMon.Fragment_BoMonDirections
+import com.google.android.gms.ads.*
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.dialog.*
@@ -36,12 +41,17 @@ class Fragment_BaiThi : Fragment() {
     val args :Fragment_BaiThiArgs by navArgs()
     var tabLayoutMediator:TabLayoutMediator? = null
     lateinit var adapterRecycelView: AdapterRecycleView
+    private var mInterstitialAd: InterstitialAd? = null
+    lateinit var mAdView : AdView
     var start:CountDownTimer? = null
     @SuppressLint("ResourceType")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        viewmodel.updateDeThi(DeThi(args.tenDeThi,args.mon,args.caulamdung,args.listChon.length,args.listChon.length,args.listChon))
+
         val bd:FragmentBaiThiBinding=DataBindingUtil.inflate(inflater,R.layout.fragment_bai_thi,container,false)
         bd.lifecycleOwner = this
         bd.viewmodel=viewmodel
@@ -55,6 +65,14 @@ class Fragment_BaiThi : Fragment() {
             viewmodel.loadBaiThiToSQL(args.mon,args.tenDeThi)
         else
             getData()
+        mInterstitialAd = newInterstitialAd(R.string.interstitial_ad_unit_id)
+        loadInterstitial()
+        MobileAds.initialize(context) {}
+        val adRequest = AdRequest.Builder()
+            .build()
+        mAdView = bd.adView
+        mAdView.loadAd(adRequest)
+
         viewmodel.list.observe(viewLifecycleOwner, Observer {
             if(it != null)
             {
@@ -117,7 +135,11 @@ class Fragment_BaiThi : Fragment() {
 
                 adapterRecycelView.notifyDataSetChanged()
             }
-            start = object :CountDownTimer((it.size*50000).toLong(), 1000)
+
+            var time = (it.size*50000).toLong();
+            if(args.mon == "Vật lí 3")
+                time =time*3-600000
+            start = object :CountDownTimer(time, 1000)
             {
                 override fun onFinish() {
                     viewmodel.text.value="00:00"
@@ -147,6 +169,12 @@ class Fragment_BaiThi : Fragment() {
             viewmodel.check.observe(viewLifecycleOwner, Observer {
                 if(it == true)
                 {
+                    if (mInterstitialAd?.isLoaded == true) {
+                        mInterstitialAd?.show()
+                    } else {
+                        mInterstitialAd = newInterstitialAd(R.string.interstitial_ad_unit_id)
+                        loadInterstitial()
+                    }
                     (start as CountDownTimer).onFinish()
                     (start as CountDownTimer).cancel()
                     txtNopBai.isEnabled=false
@@ -215,14 +243,13 @@ class Fragment_BaiThi : Fragment() {
                 dem++
             updateListChon+=x[i]
         }
-        viewmodel.updateDeThi(DeThi(args.tenDeThi,args.mon,dem,viewmodel.list.value!!.size,updateListChon))
+        viewmodel.updateDeThi(DeThi(args.tenDeThi,args.mon,dem,viewmodel.list.value!!.size,viewmodel.list.value!!.size,updateListChon))
         val dialog: Dialog=Dialog(context!!)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        dialog.getWindow()?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.setContentView(R.layout.dialog)
-        dialog.soCau.text=dem.toString()+"/"+ viewmodel.list.value!!.size.toString()+" Câu"
+        dialog.soCau.text=dem.toString()+"/"+ viewmodel.list.value!!.size.toString()
         dialog.diem.text=((Math.ceil(((dem*10)*1.0/viewmodel.list.value!!.size)*100)).toDouble()/100).toString()
         dialog.button.setOnClickListener { dialog.cancel() }
         dialog.show()
@@ -232,6 +259,32 @@ class Fragment_BaiThi : Fragment() {
         super.onDestroy()
         start?.cancel()
     }
+    private fun loadInterstitial() {
+        // Disable the next level button and load the ad.
+        val adRequest = AdRequest.Builder()
+            .setRequestAgent("android_studio:ad_template")
+            .build()
+        mInterstitialAd?.loadAd(adRequest)
+    }
+    private fun loadBanner() {
+    }
+    private fun newInterstitialAd(data:Int): InterstitialAd {
+        return InterstitialAd(context).apply {
+            adUnitId = getString(data)
+            adListener = object : AdListener() {
+                override fun onAdLoaded() {
+                }
+
+                override fun onAdFailedToLoad(errorCode: Int) {
+                }
+
+                override fun onAdClosed() {
+
+                }
+            }
+        }
+    }
+
 
 }
 

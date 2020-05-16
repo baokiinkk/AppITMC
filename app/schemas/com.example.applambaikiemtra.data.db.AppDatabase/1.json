@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "27d998ce33fdd8f75c1774ffb04ea8f3",
+    "identityHash": "fefafbfc96ad2008beb62e2f251ac317",
     "entities": [
       {
         "tableName": "BaiThi",
@@ -82,7 +82,7 @@
       },
       {
         "tableName": "DeThi",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ten` TEXT NOT NULL, `bomon` TEXT NOT NULL, `socaulamdung` INTEGER NOT NULL, `socau` INTEGER NOT NULL, `list` TEXT NOT NULL, PRIMARY KEY(`ten`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ten` TEXT NOT NULL, `bomon` TEXT NOT NULL, `socaulamdung` INTEGER NOT NULL, `socau` INTEGER NOT NULL, `socausql` INTEGER NOT NULL, `list` TEXT NOT NULL, PRIMARY KEY(`ten`))",
         "fields": [
           {
             "fieldPath": "ten",
@@ -109,6 +109,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "socausql",
+            "columnName": "socausql",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "list",
             "columnName": "list",
             "affinity": "TEXT",
@@ -128,7 +134,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '27d998ce33fdd8f75c1774ffb04ea8f3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fefafbfc96ad2008beb62e2f251ac317')"
     ]
   }
 }
