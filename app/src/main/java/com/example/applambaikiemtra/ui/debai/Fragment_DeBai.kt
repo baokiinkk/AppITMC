@@ -26,6 +26,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.AdRequest
+import com.roger.catloadinglibrary.CatLoadingView
 
 
 /**
@@ -40,6 +41,12 @@ class Fragment_DeBai : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val catload = CatLoadingView()
+        catload.show(activity!!.supportFragmentManager, "loading")
+        catload.setText("Đợi chút nhoa!")
+        catload.setClickCancelAble(false)
+
         val bd:FragmentDeBaiBinding=DataBindingUtil.inflate(inflater,R.layout.fragment__de_bai,container,false)
         bd.lifecycleOwner = this
         bd.viewmodel=viewModel
@@ -51,7 +58,7 @@ class Fragment_DeBai : Fragment() {
         viewModel.loadData(args.mon)
         viewModel.list.observe(viewLifecycleOwner, Observer {
             if(it!=null) {
-                progressBar3.visibility=View.GONE
+                catload.dismiss()
                 adapterRecycelView = DeBaiAdapter { position, chosse ->
 
                     if(isConnected == false && it[position].socausql == 0)

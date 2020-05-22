@@ -19,6 +19,7 @@
             >
 
             <TextView
+                android:id="@+id/text3"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_gravity="end"
@@ -33,7 +34,7 @@
                 android:text="Bài Thi"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +57,7 @@
                 android:text="Nộp bài"
                 android:textAllCaps="false"
                 android:textColor="#fff"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -69,15 +70,14 @@
             android:background="@drawable/background_main"
             tools:context=".ui.cauhoi.Fragment_BaiThi"
             >
+
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="500dp"
-                android:layout_marginTop="50dp"
                 android:layout_marginEnd="500dp"
-                android:layout_marginBottom="50dp"
                 android:drawableLeft="@drawable/time"
                 android:drawablePadding="2dp"
                 android:text="@{viewmodel.text}"
@@ -94,14 +94,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="40dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/backround_baithi"
                 app:layout_constraintBottom_toTopOf="@+id/adView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/textView2">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -116,17 +114,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginTop="35dp"
+                        android:layout_marginTop="20sp"
                         android:layout_marginRight="5dp">
 
                     </androidx.viewpager2.widget.ViewPager2>
-
-                    <ProgressBar
-                        android:id="@+id/progressBar"
-                        style="?android:attr/progressBarStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
 
                     <SeekBar
                         android:id="@+id/seekBar"
@@ -142,9 +133,9 @@
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tablayout"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="50dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
                     android:layout_marginBottom="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

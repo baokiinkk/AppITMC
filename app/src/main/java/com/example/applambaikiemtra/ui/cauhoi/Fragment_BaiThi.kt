@@ -24,8 +24,11 @@ import com.example.applambaikiemtra.data.db.model.DeThi
 import com.example.applambaikiemtra.databinding.FragmentBaiThiBinding
 import com.example.applambaikiemtra.ui.boMon.Fragment_BoMonDirections
 import com.google.android.gms.ads.*
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.dialog.MaterialDialogs
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.roger.catloadinglibrary.CatLoadingView
 import kotlinx.android.synthetic.main.dialog.*
 import kotlinx.android.synthetic.main.fragment_bai_thi.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -50,7 +53,11 @@ class Fragment_BaiThi : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        viewmodel.updateDeThi(DeThi(args.tenDeThi,args.mon,args.caulamdung,args.listChon.length,args.listChon.length,args.listChon))
+//        viewmodel.updateDeThi(DeThi(args.tenDeThi,args.mon,args.caulamdung,args.listChon.length,args.listChon.length,args.listChon))
+        val catload = CatLoadingView()
+        catload.show(activity!!.supportFragmentManager, "loading")
+        catload.setText("Đợi chút nhoa!")
+        catload.setClickCancelAble(false)
 
         val bd:FragmentBaiThiBinding=DataBindingUtil.inflate(inflater,R.layout.fragment_bai_thi,container,false)
         bd.lifecycleOwner = this
@@ -68,18 +75,30 @@ class Fragment_BaiThi : Fragment() {
         mInterstitialAd = newInterstitialAd(R.string.interstitial_ad_unit_id)
         loadInterstitial()
         MobileAds.initialize(context) {}
+
         val adRequest = AdRequest.Builder()
             .build()
         mAdView = bd.adView
         mAdView.loadAd(adRequest)
 
+        var temp=args.tenDeThi
+        for(i in temp.length-1 downTo 0)
+        {
+            if(temp[i] == '-')
+            {
+                temp=temp.substring(0,i);
+                break;
+            }
+        }
+        bd.text3.text=temp
         viewmodel.list.observe(viewLifecycleOwner, Observer {
             if(it != null)
             {
-                bd.progressBar.visibility=View.GONE
+                catload.dismiss()
                 adapterRecycelView=  AdapterRecycleView(viewmodel.list,args.listChon)
                 {
-                   for(i in 0..adapterRecycelView.listLuuVitri.size-1)
+                    viewmodel.updateDeThi(DeThi(args.tenDeThi,args.mon,args.caulamdung,adapterRecycelView.listLuuVitri.size,adapterRecycelView.listLuuVitri.size,args.listChon))
+                    for(i in 0..adapterRecycelView.listLuuVitri.size-1)
                     {
                         if(adapterRecycelView.listLuuVitri[i] != '0')
                         {
@@ -163,6 +182,8 @@ class Fragment_BaiThi : Fragment() {
             }
             if(args.check == true)
             {
+                bd.txtNopBai.visibility=View.GONE
+                bd.textView2.visibility=View.GONE
                 (start as CountDownTimer).onFinish()
             }
             else (start as CountDownTimer).start()
@@ -246,7 +267,7 @@ class Fragment_BaiThi : Fragment() {
         viewmodel.updateDeThi(DeThi(args.tenDeThi,args.mon,dem,viewmodel.list.value!!.size,viewmodel.list.value!!.size,updateListChon))
         val dialog: Dialog=Dialog(context!!)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.getWindow()?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+//        dialog.getWindow()?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.setContentView(R.layout.dialog)
         dialog.soCau.text=dem.toString()+"/"+ viewmodel.list.value!!.size.toString()
@@ -265,8 +286,6 @@ class Fragment_BaiThi : Fragment() {
             .setRequestAgent("android_studio:ad_template")
             .build()
         mInterstitialAd?.loadAd(adRequest)
-    }
-    private fun loadBanner() {
     }
     private fun newInterstitialAd(data:Int): InterstitialAd {
         return InterstitialAd(context).apply {

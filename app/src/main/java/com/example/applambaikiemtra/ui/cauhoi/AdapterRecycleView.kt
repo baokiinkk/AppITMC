@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applambaikiemtra.R
@@ -15,8 +16,6 @@ import kotlinx.android.synthetic.main.custom_bai_thi.view.B
 import kotlinx.android.synthetic.main.custom_bai_thi.view.C
 import kotlinx.android.synthetic.main.custom_bai_thi.view.D
 import kotlinx.android.synthetic.main.custom_bai_thi.view.txtCauHoi
-
-import java.util.jar.Attributes
 
 
 class AdapterRecycleView(val list:MutableLiveData<MutableList<BaiThi>>,listchon:String,val x:(Int)->Unit) :RecyclerView.Adapter<AdapterRecycleView.ViewHodel>() {
@@ -89,10 +88,24 @@ class AdapterRecycleView(val list:MutableLiveData<MutableList<BaiThi>>,listchon:
         val B =list.value?.get(position)?.B
         val C =list.value?.get(position)?.C
         val D =list.value?.get(position)?.D
-        holder.btnA.text="A: "+ A
-        holder.btnB.text="B: "+ B
-        holder.btnC.text="C: "+ C
-        holder.btnD.text="D: "+ D
+
+        if(A!="")
+            holder.btnA.text="A: "+ A
+        else
+            holder.btnA.isVisible=false
+
+        if(B!="")
+            holder.btnB.text="B: "+ B
+        else
+            holder.btnB.isVisible=false
+        if(C!="")
+            holder.btnC.text="C: "+ C
+        else
+            holder.btnC.isVisible=false
+        if(D!="")
+            holder.btnD.text="D: "+ D
+        else
+            holder.btnD.isVisible=false
 
 
 

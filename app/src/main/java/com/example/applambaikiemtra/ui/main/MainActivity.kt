@@ -1,5 +1,6 @@
 package com.example.applambaikiemtra.ui.main
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -41,9 +42,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_danhgia->
                 {
                     val intent:Intent= Intent(Intent.ACTION_SEND);
+                    val to="baokiinkk@gmail.com"
+                    intent.data=Uri.parse("mailto:")
                     intent.setType("text/plain");
-                    intent.putExtra(Intent.EXTRA_EMAIL,"baokiinkk@gmail.com")
-                    intent.putExtra(Intent.EXTRA_CC,"baokiinkk@gmail.com")
+                    intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(to))
                     intent.putExtra(Intent.EXTRA_SUBJECT,"-Phản Hồi Đóng Góp Xây Dựng App:")
                     intent.putExtra(Intent.EXTRA_TEXT,"... ")
                     startActivity(Intent.createChooser(intent,"choose an email client"))

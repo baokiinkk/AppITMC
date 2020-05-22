@@ -1,17 +1,23 @@
 package com.example.applambaikiemtra.ui.boMon
 
 
+import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
+import android.os.SystemClock
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,7 +25,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.applambaikiemtra.R
 
 import com.example.applambaikiemtra.databinding.FragmentBoMonBinding
+import com.roger.catloadinglibrary.CatLoadingView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 
 /**
@@ -34,6 +44,11 @@ class Fragment_BoMon : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val catload = CatLoadingView()
+        catload.show(activity!!.supportFragmentManager, "loading")
+        catload.setText("Đợi chút nhoa!")
+        catload.setClickCancelAble(false)
+
         val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
         val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
@@ -42,20 +57,22 @@ class Fragment_BoMon : Fragment() {
         else
             viewModel.loadData()
         val bd: FragmentBoMonBinding =
-            DataBindingUtil.inflate(inflater,R.layout.fragment__bo_mon,container,false)
+            DataBindingUtil.inflate(inflater,
+                com.example.applambaikiemtra.R.layout.fragment__bo_mon,container,false)
         bd.lifecycleOwner=this
         bd.viewmodel=viewModel
-
 
         viewModel.list.observe(viewLifecycleOwner, Observer {
                 if(it != null)
                 {
-                    bd.progressBar2.visibility=View.GONE
+
+                    catload.dismiss()
+
                     for(x in it)
                     {
                         viewModel.loadDataDeThitoSQl(x.tenBoMon)
                     }
-                    viewModel.test.value= it.size.toString()+" item"
+                    viewModel.test.value= it.size.toString()+" môn"
 
                     listAdapter= BoMonAdapter { position ->
                         val actionToFinsh: NavDirections =Fragment_BoMonDirections.toBai(
@@ -85,8 +102,9 @@ class Fragment_BoMon : Fragment() {
                 }
             }
         })
+
+
         return bd.root
     }
-
 
 }

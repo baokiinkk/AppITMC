@@ -66,5 +66,7 @@
             app:exitAnim="@transition/slide_out_left"
             app:popEnterAnim="@transition/slide_in_left"
             app:popExitAnim="@transition/slide_out_right" />
+
     </fragment>
+
 </navigation>

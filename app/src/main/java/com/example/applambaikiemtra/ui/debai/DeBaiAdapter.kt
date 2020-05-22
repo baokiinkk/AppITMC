@@ -27,14 +27,14 @@ class DeBaiAdapter(val setBaseClick:((Int,Int)->Unit)) : ListAdapter<DeThi, DeBa
             binding.item=item
             binding.executePendingBindings()
             var x=item.socaulamdung*100/ item.socau
-            if(x == 0) x=1
+            if(x <= 0) x=1
             itemView.progressbar.progress=x
             itemView.txtSoCau.text= item.socau.toString() +" câu"
             if(item.bomon != "Vật lí 3")
                 itemView.txtThoiGian.text = ((item.socau*50)/60).toString()+" phút"
             else
                 itemView.txtThoiGian.text = ((item.socau*50*3)/60 - 10).toString()+" phút"
-            if(item.socaulamdung == 0) {
+            if(item.socaulamdung == -1) {
                 itemView.txtSoCauLamDuoc.visibility=View.INVISIBLE
                 itemView.btnThiLai.visibility=View.GONE
             }
