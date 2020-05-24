@@ -1,6 +1,5 @@
 package com.example.applambaikiemtra.data.repository
 
-import android.util.Log
 import com.example.applambaikiemtra.data.api.firestore
 import com.example.applambaikiemtra.data.db.AppDao
 import com.example.applambaikiemtra.data.db.model.BaiThi
@@ -14,23 +13,17 @@ class Repository(val data: firestore,val dao: AppDao) {
     //Bài thi
 
     // lấy data bài thi từ sqlite trên luồng IO. dùng con trỏ hàm để tầng dưới,tầng viewmodel nhận được dữ liệu
-    fun loadDataBaiThi(idDeThi: String,x:(MutableList<BaiThi>)->Unit)
+    fun getDataCauHoiFromSQL(idDeThi: String, x:(MutableList<BaiThi>)->Unit)
     {
         GlobalScope.launch(Dispatchers.IO){
             x(dao.getBaiThi(idDeThi))
     }
     }
-    // tương tự. nhưng khác là chỉ đếm size dữ liệu
-    fun getDataBaiThi(idDeThi: String,x:(Int)->Unit)
-    {
-        GlobalScope.launch(Dispatchers.IO){
-            x(dao.getBaiThi(idDeThi).size)
-        }
-    }
+
     // load dữ liệu trên firebase vào sqlite.
-    fun loadDataBaiThiToSQL(boMon: String,deThi: String,x:(MutableList<BaiThi>)->Unit)
+    fun getDataCauHoiFromApiToSQL(boMon: String, deThi: String, x:(MutableList<BaiThi>)->Unit)
     {
-        data.getBaiLam(boMon,deThi){ data->  // dùng con trỏ hàm mà ở tầng firestore đã dùng để nhận dx dữ liệu từ firebase
+        data.getCauHoi(boMon,deThi){ data->  // dùng con trỏ hàm mà ở tầng firestore đã dùng để nhận dx dữ liệu từ firebase
             GlobalScope.launch(Dispatchers.IO){// vào luồng IO
                 for (x in data)
                 {
@@ -45,15 +38,15 @@ class Repository(val data: firestore,val dao: AppDao) {
     }
 
     //BoMon
-     fun loadDataBoMon(x:(MutableList<BoMon>)->Unit)
+     fun getDataBoMonFromSQL(x:(MutableList<BoMon>)->Unit)
     {
         GlobalScope.launch(Dispatchers.IO) {
             x(dao.getALLBoMon())
         }
     }
-     fun loadDataBoMonToSQL(xx:(MutableList<BoMon>)->Unit)
+     fun getDataBoMonFromApiToSQL(xx:(MutableList<BoMon>)->Unit)
     {
-            data.getSizeBoMon {
+            data.getBoMon {
                 GlobalScope.launch(Dispatchers.IO) {
                     for(x in it.values.toMutableList())
                         dao.addBoMon(BoMon(x))
@@ -69,18 +62,18 @@ class Repository(val data: firestore,val dao: AppDao) {
             dao.updateDeThi(deThi)
         }
     }
-    fun loadDataDeThi(boMon: String,x:(MutableList<DeThi>)->Unit)
+    fun getDataDeThiFromSQL(boMon: String, x:(MutableList<DeThi>)->Unit)
     {
         GlobalScope.launch(Dispatchers.IO){
             x(dao.getDethi(boMon))
         }
     }
-    fun loadDataDeThiToSQL(boMon: String)
+    fun getDataDeThiFromApiToSQL(boMon: String)
     {
-        data.getSizeDeBai(boMon){
+        data.getDeBai(boMon){
             GlobalScope.launch(Dispatchers.IO){
                 for(x in it){
-                    data.getBaiLam(boMon,x.value){
+                    data.getCauHoi(boMon,x.value){
                         GlobalScope.launch {
                             var list=""
                             for(i in 0.. it.size)

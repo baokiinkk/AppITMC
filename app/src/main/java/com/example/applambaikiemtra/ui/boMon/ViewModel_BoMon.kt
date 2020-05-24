@@ -15,20 +15,20 @@ class ViewModel_BoMon(val repo:Repository): ViewModel() {
         }
          fun loadData()
         {
-           repo.loadDataBoMon {
+           repo.getDataBoMonFromSQL {
                list.postValue(it)
            }
 
         }
         fun loadDatatoSQl()
         {
-            repo.loadDataBoMonToSQL{
+            repo.getDataBoMonFromApiToSQL{
                 list.postValue(it)
             }
         }
     fun loadDataDeThitoSQl(bomon: String)
     {
-        repo.loadDataDeThiToSQL(bomon)
+        repo.getDataDeThiFromApiToSQL(bomon)
 
     }
     }

@@ -6,19 +6,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.applambaikiemtra.databinding.CustomCauhoiBinding
 import com.example.applambaikiemtra.data.db.model.DeThi
-import kotlinx.android.synthetic.main.custom_cauhoi.view.*
+import com.example.applambaikiemtra.databinding.ItemDeThiBinding
+import kotlinx.android.synthetic.main.item_de_thi.view.*
 
 
 class DeBaiAdapter(val setBaseClick:((Int,Int)->Unit)) : ListAdapter<DeThi, DeBaiAdapter.ViewHodel>(DeBaiDiff()) {
 
 
-    class ViewHodel(val binding:CustomCauhoiBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHodel(val binding:ItemDeThiBinding) : RecyclerView.ViewHolder(binding.root) {
         companion object {
             fun from(parent: ViewGroup): ViewHodel {
                 val binding =
-                    CustomCauhoiBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                    ItemDeThiBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 return ViewHodel(binding)
             }
         }

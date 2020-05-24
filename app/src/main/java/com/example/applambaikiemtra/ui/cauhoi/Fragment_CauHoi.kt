@@ -12,20 +12,14 @@ import android.os.CountDownTimer
 import android.view.*
 import android.widget.SeekBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.NavDirections
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.applambaikiemtra.R
 import com.example.applambaikiemtra.data.db.model.DeThi
 import com.example.applambaikiemtra.databinding.FragmentBaiThiBinding
-import com.example.applambaikiemtra.ui.boMon.Fragment_BoMonDirections
 import com.google.android.gms.ads.*
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.dialog.MaterialDialogs
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.roger.catloadinglibrary.CatLoadingView
@@ -39,9 +33,9 @@ import kotlin.math.abs
 /**
  * A simple [Fragment] subclass.
  */
-class Fragment_BaiThi : Fragment() {
-    val viewmodel:ViewModel_BaiThi by viewModel<ViewModel_BaiThi>()
-    val args :Fragment_BaiThiArgs by navArgs()
+class Fragment_CauHoi : Fragment() {
+    val viewmodel:ViewModel_CauHoi by viewModel<ViewModel_CauHoi>()
+    val args :Fragment_CauHoiArgs by navArgs()
     var tabLayoutMediator:TabLayoutMediator? = null
     lateinit var adapterRecycelView: AdapterRecycleView
     private var mInterstitialAd: InterstitialAd? = null

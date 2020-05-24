@@ -5,16 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.applambaikiemtra.databinding.CustomBoMonBinding
 import com.example.applambaikiemtra.data.db.model.BoMon
+import com.example.applambaikiemtra.databinding.ItemBoMonBinding
 
- class BoMonAdapter(val setBaseClick:((Int)->Unit)) :ListAdapter<BoMon,BoMonAdapter.ViewHodel>(MyDIff()) {
+class BoMonAdapter(val setBaseClick:((Int)->Unit)) :ListAdapter<BoMon,BoMonAdapter.ViewHodel>(MyDIff()) {
 
-    class ViewHodel(val binding:CustomBoMonBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHodel(val binding:ItemBoMonBinding) : RecyclerView.ViewHolder(binding.root) {
         companion object {
             fun from(parent: ViewGroup): ViewHodel {
                 val binding =
-                    CustomBoMonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                    ItemBoMonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 return ViewHodel(binding)
             }
         }

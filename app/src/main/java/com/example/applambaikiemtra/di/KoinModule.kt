@@ -5,7 +5,7 @@ import com.example.applambaikiemtra.data.db.AppDao
 import com.example.applambaikiemtra.data.db.AppDatabase
 import com.example.applambaikiemtra.data.repository.Repository
 import com.example.applambaikiemtra.ui.boMon.ViewModel_BoMon
-import com.example.applambaikiemtra.ui.cauhoi.ViewModel_BaiThi
+import com.example.applambaikiemtra.ui.cauhoi.ViewModel_CauHoi
 import com.example.applambaikiemtra.ui.debai.ViewModel_DeBai
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -21,7 +21,7 @@ val deBaiVMModule= module {
     viewModel{ViewModel_DeBai(get())}
 }
 val cauHoiVMModule= module {
-    viewModel { ViewModel_BaiThi(get()) }
+    viewModel { ViewModel_CauHoi(get()) }
 }
 val firebaseModule= module {
     single { firestore() }
