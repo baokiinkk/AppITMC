@@ -47,6 +47,7 @@ class Fragment_BaiThi : Fragment() {
     private var mInterstitialAd: InterstitialAd? = null
     lateinit var mAdView : AdView
     var start:CountDownTimer? = null
+    var demtg = 0
     @SuppressLint("ResourceType")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -170,6 +171,7 @@ class Fragment_BaiThi : Fragment() {
                 }
 
                 override fun onTick(millisUntilFinished: Long) {
+                    demtg++
                     val FORMAT:String = "%02d:%02d:%02d"
                     viewmodel.text.value=""+String.format(FORMAT,
                         TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
@@ -273,6 +275,13 @@ class Fragment_BaiThi : Fragment() {
         dialog.soCau.text=dem.toString()+"/"+ viewmodel.list.value!!.size.toString()
         dialog.diem.text=((Math.ceil(((dem*10)*1.0/viewmodel.list.value!!.size)*100)).toDouble()/100).toString()
         dialog.button.setOnClickListener { dialog.cancel() }
+        val FORMAT:String = "%02d:%02d"
+        val tg:Long= (demtg*1000).toLong()
+        dialog.textView5.text="Thời gian làm: "+String.format(FORMAT,
+            TimeUnit.MILLISECONDS.toMinutes(tg) - TimeUnit.HOURS.toMinutes(
+                TimeUnit.MILLISECONDS.toHours(tg)),
+            TimeUnit.MILLISECONDS.toSeconds(tg) - TimeUnit.MINUTES.toSeconds(
+                TimeUnit.MILLISECONDS.toMinutes(tg)))
         dialog.show()
     }
 

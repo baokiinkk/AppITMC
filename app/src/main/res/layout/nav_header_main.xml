@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="@drawable/background_main"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     >
+    <!--        android:background="@drawable/background_main"-->
 
     <ImageView
         android:id="@+id/imageView"
