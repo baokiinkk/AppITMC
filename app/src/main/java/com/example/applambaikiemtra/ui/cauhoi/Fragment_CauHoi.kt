@@ -219,20 +219,14 @@ class Fragment_CauHoi : Fragment() {
     @SuppressLint("WrongConstant", "ResourceType")
     fun showErrorTabLayout()
     {
-        var x=adapterRecycelView.listLuuVitri;
-        var a= mutableListOf<Int>()
-        for(i in 0..x.size-1)
-        {
-            if(x[i].toString() != viewmodel.list.value?.get(i)?.dapan)
-                a.add(i)
-        }
+        var luachonUser=adapterRecycelView.listLuuVitri;
         tabLayoutMediator!!.detach()
         tabLayoutMediator = TabLayoutMediator(
             tablayout,
             recyclerView,
             TabLayoutMediator.TabConfigurationStrategy { tab, position ->
 
-                if(x[position].toString() != viewmodel.list.value?.get(position)?.dapan)
+                if(luachonUser[position].toString() != viewmodel.list.value?.get(position)?.dapan)
                     {
                         val text =TextView(context)
                         tab.setCustomView(null)
@@ -264,12 +258,12 @@ class Fragment_CauHoi : Fragment() {
         // nếu trùng nhau thì dem++
         // update lại listchon để có thể lần sau xem lại. và lưu update này vào csdl
         var dem=0
-        var x=adapterRecycelView.listLuuVitri
+        var luaChonUser=adapterRecycelView.listLuuVitri
         var updateListChon:String=""
-        for(i in 0..x.size-1){
-            if(x[i].toString() == viewmodel.list.value?.get(i)?.dapan)
+        for(i in 0..luaChonUser.size-1){
+            if(luaChonUser[i].toString() == viewmodel.list.value?.get(i)?.dapan)
                 dem++
-            updateListChon+=x[i]
+            updateListChon+=luaChonUser[i]
         }
         viewmodel.updateDeThi(DeThi(args.tenDeThi,args.mon,dem,viewmodel.list.value!!.size,viewmodel.list.value!!.size,updateListChon))
         val dialog: Dialog=Dialog(context!!)
