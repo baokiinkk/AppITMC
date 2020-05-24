@@ -11,6 +11,10 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
+// dùng DI để tiêm các lớp lại với nhau. mục đích là để mỗi class làm 1 công việc nhất định. ko được new 1 class nào trong 1 class
+// tuy làm chậm chương trình nhưng sẽ dễ dàng thay đổi các class mà k làm ảnh hưởng đến những class khác.
+// VD: muốn thay đổi không dùng api là firestore nữa. thì chỉ cần thay đổi class firestore mà ko cần phải sửa đổi ở những class khác
+// đây là cái khó nhất trong mô hình code mvvm
 class KoinModule {
 }
 val deBaiVMModule= module {

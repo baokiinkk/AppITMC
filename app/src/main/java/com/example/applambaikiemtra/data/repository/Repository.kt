@@ -13,24 +13,28 @@ import kotlinx.coroutines.launch
 class Repository(val data: firestore,val dao: AppDao) {
     //Bài thi
 
+    // lấy data bài thi từ sqlite trên luồng IO. dùng con trỏ hàm để tầng dưới,tầng viewmodel nhận được dữ liệu
     fun loadDataBaiThi(idDeThi: String,x:(MutableList<BaiThi>)->Unit)
     {
         GlobalScope.launch(Dispatchers.IO){
             x(dao.getBaiThi(idDeThi))
     }
     }
+    // tương tự. nhưng khác là chỉ đếm size dữ liệu
     fun getDataBaiThi(idDeThi: String,x:(Int)->Unit)
     {
         GlobalScope.launch(Dispatchers.IO){
             x(dao.getBaiThi(idDeThi).size)
         }
     }
+    // load dữ liệu trên firebase vào sqlite.
     fun loadDataBaiThiToSQL(boMon: String,deThi: String,x:(MutableList<BaiThi>)->Unit)
     {
-        data.getBaiLam(boMon,deThi){ data->
-            GlobalScope.launch(Dispatchers.IO){
+        data.getBaiLam(boMon,deThi){ data->  // dùng con trỏ hàm mà ở tầng firestore đã dùng để nhận dx dữ liệu từ firebase
+            GlobalScope.launch(Dispatchers.IO){// vào luồng IO
                 for (x in data)
                 {
+                    // đưa dữ liệu vào sqlite, nếu tồn tại thì update các thuộc tính
                     dao.addBaiThi(BaiThi(x["Câu hỏi"]!!,x["A"]!!,x["B"]!!,x["C"]!!,x["D"]!!,x["Đáp án"]!!,deThi))
                     dao.updateBaiThi(BaiThi(x["Câu hỏi"]!!,x["A"]!!,x["B"]!!,x["C"]!!,x["D"]!!,x["Đáp án"]!!,deThi))
                 }

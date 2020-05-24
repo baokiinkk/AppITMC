@@ -159,8 +159,11 @@ class Fragment_BaiThi : Fragment() {
             var time = (it.size*50000).toLong();
             if(args.mon == "Vật lí 3")
                 time =time*3-600000
+
+            // hàm đếm thời gian với tốc độ đếm là 1s .
             start = object :CountDownTimer(time, 1000)
             {
+                //hàm khi kết thúc thì sẽ mở hộp thoại báo điểm
                 override fun onFinish() {
                     viewmodel.text.value="00:00"
                     if(args.check ==false)
@@ -170,9 +173,13 @@ class Fragment_BaiThi : Fragment() {
                     adapterRecycelView.notifyDataSetChanged()
                 }
 
+                // cứ mỗi giây thì hàm này sẽ dx gọi.
                 override fun onTick(millisUntilFinished: Long) {
+                    // cứ mỗi giây biến demtg++ - demtg chính là thời gian mà người dùng tốn để hoàn thành bài thi
                     demtg++
-                    val FORMAT:String = "%02d:%02d:%02d"
+
+                    // thời gian sẽ được gán vào biến text.biến text sẽ liên kết với textview ở màn hình làm bài thi.
+                    val FORMAT:String = "%02d:%02d:%02d"  // chuẩn hóa nó thành dạng giờ:phút:giây
                     viewmodel.text.value=""+String.format(FORMAT,
                         TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
                         TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
@@ -258,6 +265,10 @@ class Fragment_BaiThi : Fragment() {
         tabLayoutMediator!!.attach()
     }
     fun openDialog() {
+
+        // khi người dùng click vào những đáp án thì viewmodel.list sẽ lưu các sự lựa chọn đó.giờ ta so list đó với list kết quả.
+        // nếu trùng nhau thì dem++
+        // update lại listchon để có thể lần sau xem lại. và lưu update này vào csdl
         var dem=0
         var x=adapterRecycelView.listLuuVitri
         var updateListChon:String=""
@@ -273,6 +284,8 @@ class Fragment_BaiThi : Fragment() {
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.setContentView(R.layout.dialog)
         dialog.soCau.text=dem.toString()+"/"+ viewmodel.list.value!!.size.toString()
+
+        // từ biến dem trên để tính ra số điểm.
         dialog.diem.text=((Math.ceil(((dem*10)*1.0/viewmodel.list.value!!.size)*100)).toDouble()/100).toString()
         dialog.button.setOnClickListener { dialog.cancel() }
         val FORMAT:String = "%02d:%02d"

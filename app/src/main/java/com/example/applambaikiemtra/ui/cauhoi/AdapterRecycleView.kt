@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.custom_bai_thi.view.txtCauHoi
 class AdapterRecycleView(val list:MutableLiveData<MutableList<BaiThi>>,listchon:String,val x:(Int)->Unit) :RecyclerView.Adapter<AdapterRecycleView.ViewHodel>() {
     var boolean: Boolean=false
 
+    //  lấy các đáp án người dùng chọn. nếu ng dùng chưa từng làm bài thì list này sẽ là 1 dãy các số -1
     val listLuuVitri:MutableList<Char> = mutableListOf()
     init {
         for(i in 0.. list.value!!.size-1) {
@@ -30,6 +31,8 @@ class AdapterRecycleView(val list:MutableLiveData<MutableList<BaiThi>>,listchon:
 
     inner class ViewHodel(v: View):RecyclerView.ViewHolder(v),View.OnClickListener
     {
+
+        //
         override fun onClick(v: View?) {
             when(v?.id)
             {

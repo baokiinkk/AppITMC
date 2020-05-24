@@ -5,6 +5,8 @@ import com.example.applambaikiemtra.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
+
+// tiêm DI
 class App :Application() {
     override fun onCreate() {
         super.onCreate()

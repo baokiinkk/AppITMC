@@ -3,6 +3,7 @@ package com.example.applambaikiemtra.ui.boMon
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
@@ -37,7 +38,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  */
 class Fragment_BoMon : Fragment() {
     val viewModel: ViewModel_BoMon by viewModel<ViewModel_BoMon>()
-    var x :MutableList<String> = mutableListOf()
+    var x    :MutableList<String> = mutableListOf()
     var listAdapter:BoMonAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
