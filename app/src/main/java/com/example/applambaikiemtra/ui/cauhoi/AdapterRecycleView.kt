@@ -10,12 +10,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applambaikiemtra.R
 import com.example.applambaikiemtra.data.db.model.BaiThi
-import kotlinx.android.synthetic.main.item_bai_thi.view.*
-import kotlinx.android.synthetic.main.item_bai_thi.view.A
-import kotlinx.android.synthetic.main.item_bai_thi.view.B
-import kotlinx.android.synthetic.main.item_bai_thi.view.C
-import kotlinx.android.synthetic.main.item_bai_thi.view.D
-import kotlinx.android.synthetic.main.item_bai_thi.view.txtCauHoi
+import kotlinx.android.synthetic.main.item_cau_hoi.view.*
+import kotlinx.android.synthetic.main.item_cau_hoi.view.A
+import kotlinx.android.synthetic.main.item_cau_hoi.view.B
+import kotlinx.android.synthetic.main.item_cau_hoi.view.C
+import kotlinx.android.synthetic.main.item_cau_hoi.view.D
+import kotlinx.android.synthetic.main.item_cau_hoi.view.txtCauHoi
 
 
 class AdapterRecycleView(val list:MutableLiveData<MutableList<BaiThi>>,listchon:String,val x:(Int)->Unit) :RecyclerView.Adapter<AdapterRecycleView.ViewHodel>() {
@@ -74,7 +74,7 @@ class AdapterRecycleView(val list:MutableLiveData<MutableList<BaiThi>>,listchon:
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHodel {
-        val view =LayoutInflater.from(parent.context).inflate( R.layout.item_bai_thi,parent,false)
+        val view =LayoutInflater.from(parent.context).inflate( R.layout.item_cau_hoi,parent,false)
         val viewHodel=ViewHodel(view)
         if(viewHodel.group == null)
             Log.i("aaaaaaaaaa","null")

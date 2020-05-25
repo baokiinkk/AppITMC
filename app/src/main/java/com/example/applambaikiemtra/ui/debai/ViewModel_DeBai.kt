@@ -15,4 +15,11 @@ class ViewModel_DeBai(val repo:Repository) :ViewModel() {
             list.postValue(it)
         }
     }
+    fun loadDataDeThitoSQl(bomon: String)
+    {
+        repo.getDataDeThiFromApiToSQL(bomon){
+            list.postValue(it)
+        }
+
+    }
 }

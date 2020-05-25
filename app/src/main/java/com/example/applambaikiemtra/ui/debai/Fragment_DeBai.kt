@@ -42,6 +42,14 @@ class Fragment_DeBai : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
+        val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+        if(isConnected ==true)
+            viewModel.loadDataDeThitoSQl(args.mon)
+        else
+            viewModel.loadData(args.mon)
+
         val catload = CatLoadingView()
         catload.show(activity!!.supportFragmentManager, "loading")
         catload.setText("Đợi chút nhoa!")
@@ -52,10 +60,6 @@ class Fragment_DeBai : Fragment() {
         bd.viewmodel=viewModel
         viewModel.test.value="Môn "+args.mon
 
-        val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
-        val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
-        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
-        viewModel.loadData(args.mon)
         viewModel.list.observe(viewLifecycleOwner, Observer {
             if(it!=null) {
                 catload.dismiss()

@@ -33,7 +33,7 @@
         android:id="@+id/fragment_BaiThi"
         android:name="com.example.applambaikiemtra.ui.cauhoi.Fragment_CauHoi"
         android:label="Bài Thi"
-        tools:layout="@layout/fragment_bai_thi">
+        tools:layout="@layout/fragment_cau_hoi">
 
         <argument
             android:name="tenDeThi"

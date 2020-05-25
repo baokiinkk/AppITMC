@@ -26,9 +26,5 @@ class ViewModel_BoMon(val repo:Repository): ViewModel() {
                 list.postValue(it)
             }
         }
-    fun loadDataDeThitoSQl(bomon: String)
-    {
-        repo.getDataDeThiFromApiToSQL(bomon)
 
-    }
     }

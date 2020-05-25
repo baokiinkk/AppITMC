@@ -58,21 +58,14 @@ class Fragment_BoMon : Fragment() {
         else
             viewModel.loadData()
         val bd: FragmentBoMonBinding =
-            DataBindingUtil.inflate(inflater,
-                com.example.applambaikiemtra.R.layout.fragment__bo_mon,container,false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment__bo_mon,container,false)
         bd.lifecycleOwner=this
         bd.viewmodel=viewModel
 
         viewModel.list.observe(viewLifecycleOwner, Observer {
                 if(it != null)
                 {
-
                     catload.dismiss()
-
-                    for(x in it)
-                    {
-                        viewModel.loadDataDeThitoSQl(x.tenBoMon)
-                    }
                     viewModel.test.value= it.size.toString()+" môn"
 
                     listAdapter= BoMonAdapter { position ->

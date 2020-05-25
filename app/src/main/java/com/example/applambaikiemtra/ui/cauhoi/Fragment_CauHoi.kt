@@ -18,13 +18,13 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.example.applambaikiemtra.R
 import com.example.applambaikiemtra.data.db.model.DeThi
-import com.example.applambaikiemtra.databinding.FragmentBaiThiBinding
+import com.example.applambaikiemtra.databinding.FragmentCauHoiBinding
 import com.google.android.gms.ads.*
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.roger.catloadinglibrary.CatLoadingView
 import kotlinx.android.synthetic.main.dialog.*
-import kotlinx.android.synthetic.main.fragment_bai_thi.*
+import kotlinx.android.synthetic.main.fragment_cau_hoi.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
@@ -54,7 +54,7 @@ class Fragment_CauHoi : Fragment() {
         catload.setText("Đợi chút nhoa!")
         catload.setClickCancelAble(false)
 
-        val bd:FragmentBaiThiBinding=DataBindingUtil.inflate(inflater,R.layout.fragment_bai_thi,container,false)
+        val bd:FragmentCauHoiBinding=DataBindingUtil.inflate(inflater,R.layout.fragment_cau_hoi,container,false)
         bd.lifecycleOwner = this
         bd.viewmodel=viewmodel
         viewmodel.title= args.mon
@@ -66,7 +66,7 @@ class Fragment_CauHoi : Fragment() {
         if(isConnected ==true)
             viewmodel.loadBaiThiToSQL(args.mon,args.tenDeThi)
         else
-            getData()
+            viewmodel.getData(args.tenDeThi)
         mInterstitialAd = newInterstitialAd(R.string.interstitial_ad_unit_id)
         loadInterstitial()
         MobileAds.initialize(context) {}
@@ -212,10 +212,8 @@ class Fragment_CauHoi : Fragment() {
 
         return bd.root
     }
-    fun getData()
-    {
-        viewmodel.getData(args.tenDeThi)
-    }
+
+
     @SuppressLint("WrongConstant", "ResourceType")
     fun showErrorTabLayout()
     {
