@@ -84,20 +84,20 @@
     <me.grantland.widget.AutofitTextView
         android:id="@+id/txtCauHoi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:maxLines="4"
         android:text="sadfdădawdwadwădawdwadawdawdawdwaadawdwadwadawdawdeddaw"
         android:textColor="@color/colorPrimary"
-        android:textSize="35sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
-        autofit:minTextSize="25sp" />
+        autofit:minTextSize="20sp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,140 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "fefafbfc96ad2008beb62e2f251ac317",
+    "entities": [
+      {
+        "tableName": "BaiThi",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cauhoi` TEXT NOT NULL, `A` TEXT NOT NULL, `B` TEXT NOT NULL, `C` TEXT NOT NULL, `D` TEXT NOT NULL, `dapan` TEXT NOT NULL, `DeThiID` TEXT NOT NULL, PRIMARY KEY(`cauhoi`))",
+        "fields": [
+          {
+            "fieldPath": "cauhoi",
+            "columnName": "cauhoi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "A",
+            "columnName": "A",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "B",
+            "columnName": "B",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "C",
+            "columnName": "C",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "D",
+            "columnName": "D",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dapan",
+            "columnName": "dapan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DeThiID",
+            "columnName": "DeThiID",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "cauhoi"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "BoMon",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tenBoMon` TEXT NOT NULL, PRIMARY KEY(`tenBoMon`))",
+        "fields": [
+          {
+            "fieldPath": "tenBoMon",
+            "columnName": "tenBoMon",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "tenBoMon"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "DeThi",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ten` TEXT NOT NULL, `bomon` TEXT NOT NULL, `socaulamdung` INTEGER NOT NULL, `socau` INTEGER NOT NULL, `socausql` INTEGER NOT NULL, `list` TEXT NOT NULL, PRIMARY KEY(`ten`))",
+        "fields": [
+          {
+            "fieldPath": "ten",
+            "columnName": "ten",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bomon",
+            "columnName": "bomon",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "socaulamdung",
+            "columnName": "socaulamdung",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "socau",
+            "columnName": "socau",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "socausql",
+            "columnName": "socausql",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "list",
+            "columnName": "list",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "ten"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fefafbfc96ad2008beb62e2f251ac317')"
+    ]
+  }
+}

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.example.applambaikiemtra.ui.debai.ViewModel_DeBai" />
+            type="com.ptithcm.applambaikiemtra.ui.debai.ViewModel_DeBai" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"

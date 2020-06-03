@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.example.applambaikiemtra.data.db.model.DeThi" />
+            type="com.ptithcm.applambaikiemtra.data.db.model.DeThi" />
     </data>
 
         <androidx.cardview.widget.CardView

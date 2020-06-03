@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.example.applambaikiemtra.data.db.model.BoMon" />
+            type="com.ptithcm.applambaikiemtra.data.db.model.BoMon" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

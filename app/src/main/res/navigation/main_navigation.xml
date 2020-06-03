@@ -6,7 +6,7 @@
     app:startDestination="@id/fragment_BoMon">
     <fragment
         android:id="@+id/fragment_DeBai"
-        android:name="com.example.applambaikiemtra.ui.debai.Fragment_DeBai"
+        android:name="com.ptithcm.applambaikiemtra.ui.debai.Fragment_DeBai"
         android:label="Đề Bài"
         tools:layout="@layout/fragment__de_bai">
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_BaiThi"
-        android:name="com.example.applambaikiemtra.ui.cauhoi.Fragment_CauHoi"
+        android:name="com.ptithcm.applambaikiemtra.ui.cauhoi.Fragment_CauHoi"
         android:label="Bài Thi"
         tools:layout="@layout/fragment_cau_hoi">
 
@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_BoMon"
-        android:name="com.example.applambaikiemtra.ui.boMon.Fragment_BoMon"
+        android:name="com.ptithcm.applambaikiemtra.ui.boMon.Fragment_BoMon"
         android:label="Bộ Môn"
         tools:layout="@layout/fragment__bo_mon">
         <action
