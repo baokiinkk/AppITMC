@@ -87,7 +87,7 @@
     <me.grantland.widget.AutofitTextView
         android:id="@+id/txtCauHoi"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -99,7 +99,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        autofit:minTextSize="5sp" />
+        autofit:minTextSize="4sp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

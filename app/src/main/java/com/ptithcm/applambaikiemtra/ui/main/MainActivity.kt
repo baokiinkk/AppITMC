@@ -38,16 +38,14 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_fanpage->getlink("https://www.facebook.com/it.multimedia.club/")
                 R.id.nav_facebook->getlink("https://www.facebook.com/baokiin")
                 R.id.nav_web->getlink("https://itmc-ptithcm.github.io/")
-                R.id.nav_danhgia->
-                {
+                R.id.nav_danhgia->getlink("https://play.google.com/store/apps/details?id=com.ptithcm.applambaikiemtra")
+                R.id.nav_share->{
                     val intent:Intent= Intent(Intent.ACTION_SEND);
                     val to="baokiinkk@gmail.com"
                     intent.data=Uri.parse("mailto:")
                     intent.setType("text/plain");
-                    intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(to))
-                    intent.putExtra(Intent.EXTRA_SUBJECT,"-Phản Hồi Đóng Góp Xây Dựng App:")
-                    intent.putExtra(Intent.EXTRA_TEXT,"... ")
-                    startActivity(Intent.createChooser(intent,"choose an email client"))
+                    intent.putExtra(Intent.EXTRA_TEXT,"https://play.google.com/store/apps/details?id=com.ptithcm.applambaikiemtra")
+                    startActivity(Intent.createChooser(intent,"choose an mess client"))
                 }
             }
              true
