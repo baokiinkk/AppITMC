@@ -21,6 +21,8 @@ import androidx.navigation.fragment.navArgs
 import com.ptithcm.applambaikiemtra.databinding.FragmentDeBaiBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.roger.catloadinglibrary.CatLoadingView
+import kotlinx.android.synthetic.main.fragment__bo_mon.*
+import kotlinx.android.synthetic.main.fragment__de_bai.*
 
 
 /**
@@ -57,6 +59,15 @@ class Fragment_DeBai : Fragment() {
         viewModel.list.observe(viewLifecycleOwner, Observer {
             if(it!=null) {
                 catload.dismiss()
+                deBai_swipe.setWaveRGBColor(255,255,255)
+                deBai_swipe.setOnRefreshListener {
+                    deBai_swipe.postDelayed(
+                        Runnable {
+                            adapterRecycelView.submitList(it)
+                            Toast.makeText(context,"load lại thành công.",Toast.LENGTH_SHORT).show()
+                            deBai_swipe.setRefreshing(false) }, 2000
+                    )
+                }
                 adapterRecycelView = DeBaiAdapter { position, chosse ->
 
                     if(isConnected == false && it[position].socausql == 0)

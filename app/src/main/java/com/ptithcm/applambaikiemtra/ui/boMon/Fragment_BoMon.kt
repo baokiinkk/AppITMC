@@ -5,23 +5,23 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ptithcm.applambaikiemtra.R
-
 import com.ptithcm.applambaikiemtra.databinding.FragmentBoMonBinding
 import com.roger.catloadinglibrary.CatLoadingView
+import kotlinx.android.synthetic.main.fragment__bo_mon.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
+import java.util.*
 
 
 /**
@@ -57,6 +57,20 @@ class Fragment_BoMon : Fragment() {
                 if(it != null)
                 {
                     catload.dismiss()
+                    boMon_swipe.setWaveRGBColor(63,81,181)
+                    boMon_swipe.setOnRefreshListener {
+                        boMon_swipe.postDelayed(
+                            Runnable {
+                                if(isConnected ==true) {
+                                    viewModel.loadDatatoSQl()
+                                    Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show()
+                                }
+                                else
+                                    Toast.makeText(context,"Thiết bị hiện không có mạng.xin vui lòng kiểm tra lại!!",Toast.LENGTH_SHORT).show()
+                                boMon_swipe.setRefreshing(false) }, 2000
+                        )
+                    }
+
                     viewModel.test.value= it.size.toString()+" môn"
 
                     listAdapter= BoMonAdapter { position ->
@@ -73,23 +87,8 @@ class Fragment_BoMon : Fragment() {
                  }
             }
         )
-        viewModel.toLogin.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                if(it == true)
-                {
-                    if(isConnected ==true) {
-                        viewModel.loadDatatoSQl()
-                        Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show()
-                        viewModel.toLogin.postValue(false)
-                    }
-                    else
-                        Toast.makeText(context,"Thiết bị hiện không có mạng.xin vui lòng kiểm tra lại!!",Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
-
-
         return bd.root
     }
+
 
 }

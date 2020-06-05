@@ -25,6 +25,7 @@ class Repository(val data: firestore,val dao: AppDao) {
     {
         data.getCauHoi(boMon,deThi){ data->  // dùng con trỏ hàm mà ở tầng firestore đã dùng để nhận dx dữ liệu từ firebase
             GlobalScope.launch(Dispatchers.IO){// vào luồng IO
+                dao.deleteBaiThi()
                 for (x in data)
                 {
                     // đưa dữ liệu vào sqlite, nếu tồn tại thì update các thuộc tính
@@ -48,6 +49,7 @@ class Repository(val data: firestore,val dao: AppDao) {
     {
             data.getBoMon {
                 GlobalScope.launch(Dispatchers.IO) {
+                    dao.deleteBoMon()
                     for(x in it.values.toMutableList())
                         dao.addBoMon(BoMon(x))
                     xx(dao.getALLBoMon())
@@ -72,6 +74,7 @@ class Repository(val data: firestore,val dao: AppDao) {
     {
         data.getDeBai(boMon){
             GlobalScope.launch(Dispatchers.IO){
+                dao.deleteDeThi()
                 for(x in it){
                     data.getCauHoi(boMon,x.value){
                         GlobalScope.launch {

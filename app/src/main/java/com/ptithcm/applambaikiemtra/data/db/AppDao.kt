@@ -34,14 +34,20 @@ interface AppDao {
     //query
     @Query("select * from BoMon")
     suspend fun getALLBoMon(): MutableList<BoMon>
+    @Query("DELETE  from BoMon")
+    suspend fun deleteBoMon()
 
     @Query("select * from DeThi Where DeThi.bomon= :bomon")
     suspend fun getDethi(bomon:String): MutableList<DeThi>
+    @Query("DELETE  from DeThi")
+    suspend fun deleteDeThi()
 
     @Query("select * from DeThi Where DeThi.ten=:bomon")
     suspend fun getDethiS(bomon:String): DeThi
 
     @Query("select * from BaiThi Where BaiThi.DeThiID=:idDeThi")
     suspend fun getBaiThi(idDeThi: String): MutableList<BaiThi>
+    @Query("DELETE  from BaiThi")
+    suspend fun deleteBaiThi()
 
 }

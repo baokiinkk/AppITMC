@@ -83,4 +83,7 @@ dependencies {
 
     //loading
     implementation 'com.roger.catloadinglibrary:catloadinglibrary:1.0.5'
+
+    //refresh
+    implementation 'com.github.recruit-lifestyle:WaveSwipeRefreshLayout:1.6'
 }

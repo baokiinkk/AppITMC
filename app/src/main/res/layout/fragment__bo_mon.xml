@@ -25,7 +25,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/itmc"
         android:onClick="@{()->viewmodel.listener()}"
-        android:textColor="#03A9F4"
+        android:textColor="#FDFEFF"
         android:textSize="30sp"
         android:textStyle="bold"
 
@@ -54,7 +54,11 @@
 
         <!-- TODO: Update blank fragment layout -->
 
-
+        <jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/boMon_swipe"
+            >
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
@@ -64,6 +68,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp"
             />
+        </jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout>
 
     </FrameLayout>
 
