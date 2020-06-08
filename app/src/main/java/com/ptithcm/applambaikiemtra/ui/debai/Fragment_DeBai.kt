@@ -67,7 +67,7 @@ class Fragment_DeBai : Fragment() {
                             deBai_swipe.setRefreshing(false) }, 1000
                     )
                 }
-                adapterRecycelView = DeBaiAdapter { position, chosse ->
+                adapterRecycelView = DeBaiAdapter { position, chosse ->//
 
                     if(isConnected == false && it[position].socausql == 0)
                     {
