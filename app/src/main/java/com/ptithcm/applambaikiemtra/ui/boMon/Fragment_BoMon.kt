@@ -44,6 +44,9 @@ class Fragment_BoMon : Fragment() {
         val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
         val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+        if(isConnected)
+            viewModel.loadDatatoSQl()
+        else
             viewModel.loadData()
         val bd: FragmentBoMonBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment__bo_mon,container,false)

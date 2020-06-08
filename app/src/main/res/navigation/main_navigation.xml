@@ -73,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/downloadFragment"
-        android:name="com.ptithcm.applambaikiemtra.DownloadFragment"
+        android:name="com.ptithcm.applambaikiemtra.ui.downdebai.DownloadFragment"
         android:label="fragment_download"
         tools:layout="@layout/fragment_download" />
 

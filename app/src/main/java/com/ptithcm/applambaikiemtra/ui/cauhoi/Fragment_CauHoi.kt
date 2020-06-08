@@ -79,7 +79,7 @@ class Fragment_CauHoi : Fragment() {
         {
             if(temp[i] == '-')
             {
-                temp=temp.substring(0,i);
+                temp=temp.substring(0,i)
                 break;
             }
         }

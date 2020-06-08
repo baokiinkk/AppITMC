@@ -18,7 +18,8 @@ class App :Application() {
                 cauHoiVMModule,
                 bomonVMModel,
                 appdaoModule,
-                repoModule
+                repoModule,
+                downDebaiModule
             ))
         }
     }

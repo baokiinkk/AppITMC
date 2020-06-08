@@ -7,6 +7,7 @@ import com.ptithcm.applambaikiemtra.data.repository.Repository
 import com.ptithcm.applambaikiemtra.ui.boMon.ViewModel_BoMon
 import com.ptithcm.applambaikiemtra.ui.cauhoi.ViewModel_CauHoi
 import com.ptithcm.applambaikiemtra.ui.debai.ViewModel_DeBai
+import com.ptithcm.applambaikiemtra.ui.downdebai.DownDeBaiViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -34,4 +35,8 @@ val bomonVMModel= module {
 }
 val repoModule = module {
     single { Repository(get(),get()) }
+}
+
+val downDebaiModule = module {
+    viewModel {DownDeBaiViewModel(get())}
 }
