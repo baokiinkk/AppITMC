@@ -64,6 +64,12 @@ class Repository(val data: firestore,val dao: AppDao) {
             dao.updateDeThi(deThi)
         }
     }
+    fun getDatatoFireStore(boMon: String,xx: (MutableList<String>) -> Unit){
+        data.getDeBai(boMon){
+            xx(it.values.toMutableList())
+        }
+    }
+
     fun getDataDeThiFromSQL(boMon: String, x:(MutableList<DeThi>)->Unit)
     {
         GlobalScope.launch(Dispatchers.IO){
@@ -85,10 +91,11 @@ class Repository(val data: firestore,val dao: AppDao) {
                             dethi.socau=it.size
                             dao.updateDeThi(dethi)
 
-                            xx(dao.getDethi(boMon))
+
                         }
                     }
                 }
+                xx(dao.getDethi(boMon))
             }
 
         }

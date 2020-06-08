@@ -44,7 +44,7 @@ class Fragment_BoMon : Fragment() {
         val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
         val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
-        if(isConnected)
+        if(isConnected == true)
             viewModel.loadDatatoSQl()
         else
             viewModel.loadData()

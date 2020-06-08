@@ -5,23 +5,24 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ptithcm.applambaikiemtra.R
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.ptithcm.applambaikiemtra.R
 import com.ptithcm.applambaikiemtra.databinding.FragmentDeBaiBinding
-import com.roger.catloadinglibrary.CatLoadingView
-import kotlinx.android.synthetic.main.fragment__de_bai.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.roger.catloadinglibrary.CatLoadingView
+import kotlinx.android.synthetic.main.fragment__bo_mon.*
+import kotlinx.android.synthetic.main.fragment__de_bai.*
 
 
 /**
@@ -36,6 +37,7 @@ class Fragment_DeBai : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
         val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
@@ -57,17 +59,12 @@ class Fragment_DeBai : Fragment() {
                 deBai_swipe.setWaveRGBColor(255,255,255)
                 deBai_swipe.setOnRefreshListener {
                     deBai_swipe.postDelayed(
-                        {
-                            if (isConnected)
-                                viewModel.loadDataDeThitoSQl(args.mon)
-                            else
+                        Runnable {
                                 viewModel.loadData(args.mon)
                             it.sortBy { it.ten }
                             adapterRecycelView.submitList(it)
-                            Toast.makeText(context, "tải lại thành công.", Toast.LENGTH_SHORT)
-                                .show()
-                            deBai_swipe.setRefreshing(false)
-                        }, 1000
+                            Toast.makeText(context,"tải lại thành công.",Toast.LENGTH_SHORT).show()
+                            deBai_swipe.setRefreshing(false) }, 1000
                     )
                 }
                 adapterRecycelView = DeBaiAdapter { position, chosse ->
@@ -112,4 +109,7 @@ class Fragment_DeBai : Fragment() {
 
         return bd.root
     }
+
+
+
 }
