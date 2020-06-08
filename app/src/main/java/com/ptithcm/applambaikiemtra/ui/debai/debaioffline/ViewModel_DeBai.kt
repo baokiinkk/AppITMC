@@ -1,4 +1,4 @@
-package com.ptithcm.applambaikiemtra.ui.downdebai
+package com.ptithcm.applambaikiemtra.ui.debai.debaioffline
 
 
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.ptithcm.applambaikiemtra.data.db.model.DeThi
 import com.ptithcm.applambaikiemtra.data.repository.Repository
 
-class DownDeBaiViewModel(val repo:Repository) :ViewModel() {
+class ViewModel_DeBai(val repo:Repository) :ViewModel() {
     var list:MutableLiveData<MutableList<DeThi>> = MutableLiveData()
     var listFirebase:MutableLiveData<MutableList<DeThi>> = MutableLiveData()
     var test: MutableLiveData<String> = MutableLiveData()

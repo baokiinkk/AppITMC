@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.ptithcm.applambaikiemtra.ui.debai.ViewModel_DeBai" />
+            type="com.ptithcm.applambaikiemtra.ui.debai.debaioffline.ViewModel_DeBai" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,6 +48,7 @@
             </jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/book"

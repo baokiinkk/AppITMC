@@ -6,8 +6,8 @@ import com.ptithcm.applambaikiemtra.data.db.AppDatabase
 import com.ptithcm.applambaikiemtra.data.repository.Repository
 import com.ptithcm.applambaikiemtra.ui.boMon.ViewModel_BoMon
 import com.ptithcm.applambaikiemtra.ui.cauhoi.ViewModel_CauHoi
-import com.ptithcm.applambaikiemtra.ui.debai.ViewModel_DeBai
-import com.ptithcm.applambaikiemtra.ui.downdebai.DownDeBaiViewModel
+import com.ptithcm.applambaikiemtra.ui.debai.debaioffline.ViewModel_DeBai
+import com.ptithcm.applambaikiemtra.ui.debai.debaionline.DownDeBaiViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

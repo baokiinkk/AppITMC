@@ -1,5 +1,7 @@
 package com.ptithcm.applambaikiemtra.ui.debai
 
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +13,9 @@ import com.ptithcm.applambaikiemtra.databinding.ItemDeThiBinding
 import kotlinx.android.synthetic.main.item_de_thi.view.*
 
 
-class DeBaiAdapter(val setBaseClick:((Int,Int)->Unit)) : ListAdapter<DeThi, DeBaiAdapter.ViewHodel>(DeBaiDiff()) {
+class DeBaiAdapter(val setBaseClick:((Int,Int)->Unit), val isDowload:(Int)->Boolean) : ListAdapter<DeThi, DeBaiAdapter.ViewHodel>(
+    DeBaiDiff()
+) {
 
 
     class ViewHodel(val binding:ItemDeThiBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -19,10 +23,12 @@ class DeBaiAdapter(val setBaseClick:((Int,Int)->Unit)) : ListAdapter<DeThi, DeBa
             fun from(parent: ViewGroup): ViewHodel {
                 val binding =
                     ItemDeThiBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return ViewHodel(binding)
+                return ViewHodel(
+                    binding
+                )
             }
         }
-        fun bind(item:DeThi, baseClick:((Int, Int)->Unit)?=null)
+        fun bind(item:DeThi, baseClick:((Int, Int)->Unit)?=null,  isDowload:(Int)->Boolean)
         {
             binding.item=item
             binding.executePendingBindings()
@@ -53,16 +59,23 @@ class DeBaiAdapter(val setBaseClick:((Int,Int)->Unit)) : ListAdapter<DeThi, DeBa
                     click(adapterPosition,3)
                 }
             }
+            if(isDowload(adapterPosition)){
+                binding.itemDeThi.setBackgroundColor(Color.RED)
+            }else{
+                binding.itemDeThi.setBackgroundColor(Color.WHITE)
+            }
         }
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeBaiAdapter.ViewHodel {
-        return ViewHodel.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHodel {
+        return ViewHodel.from(
+            parent
+        )
     }
 
-    override fun onBindViewHolder(holder: DeBaiAdapter.ViewHodel, position: Int) {
-        holder.bind(getItem(position),setBaseClick)
+    override fun onBindViewHolder(holder: ViewHodel, position: Int) {
+        holder.bind(getItem(position),setBaseClick, isDowload)
     }
 }
 

@@ -6,7 +6,7 @@
     app:startDestination="@id/fragment_BoMon">
     <fragment
         android:id="@+id/fragment_DeBai"
-        android:name="com.ptithcm.applambaikiemtra.ui.debai.Fragment_DeBai"
+        android:name="com.ptithcm.applambaikiemtra.ui.debai.debaioffline.Fragment_DeBai"
         android:label="Đề Bài"
         tools:layout="@layout/fragment__de_bai">
         <action
@@ -29,7 +29,7 @@
             app:popExitAnim="@transition/slide_out_right"
             app:popUpTo="@+id/fragment_BoMon" />
         <action
-            android:id="@+id/action_fragment_DeBai_to_downloadFragment"
+            android:id="@+id/toDown"
             app:destination="@id/downloadFragment" />
     </fragment>
     <fragment
@@ -73,8 +73,15 @@
     </fragment>
     <fragment
         android:id="@+id/downloadFragment"
-        android:name="com.ptithcm.applambaikiemtra.ui.downdebai.DownloadFragment"
-        android:label="fragment_download"
-        tools:layout="@layout/fragment_download" />
+        android:name="com.ptithcm.applambaikiemtra.ui.debai.debaionline.DownloadFragment"
+        android:label="Download"
+        tools:layout="@layout/fragment_download">
+        <argument
+            android:name="mon"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_downloadFragment_to_fragment_DeBai"
+            app:destination="@id/fragment_DeBai" />
+    </fragment>
 
 </navigation>
