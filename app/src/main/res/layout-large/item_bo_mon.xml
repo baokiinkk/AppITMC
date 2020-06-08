@@ -24,6 +24,7 @@
             android:text="@{item.tenBoMon}"
             android:textColor="#000"
             android:textSize="25sp"
+            android:textAllCaps="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"

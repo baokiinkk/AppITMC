@@ -63,9 +63,6 @@ class Fragment_CauHoi : Fragment() {
         val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
         val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
-        if(isConnected ==true)
-            viewmodel.loadBaiThiToSQL(args.mon,args.tenDeThi)
-        else
             viewmodel.getData(args.tenDeThi)
         mInterstitialAd = newInterstitialAd(R.string.interstitial_ad_unit_id)
         loadInterstitial()
@@ -151,7 +148,7 @@ class Fragment_CauHoi : Fragment() {
                 adapterRecycelView.notifyDataSetChanged()
             }
 
-            var time = (it.size*50000).toLong();
+            var time = (it.size*60000).toLong();
             if(args.mon == "Vật lí 3")
                 time =time*3-600000
 

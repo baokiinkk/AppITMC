@@ -34,15 +34,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/deBai_swipe"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 >
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="25dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+
                 />
             </jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout>
         </FrameLayout>

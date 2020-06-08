@@ -31,7 +31,7 @@ class DeBaiAdapter(val setBaseClick:((Int,Int)->Unit)) : ListAdapter<DeThi, DeBa
             itemView.progressbar.progress=x
             itemView.txtSoCau.text= item.socau.toString() +" câu"
             if(item.bomon != "Vật lí 3")
-                itemView.txtThoiGian.text = ((item.socau*50)/60).toString()+" phút"
+                itemView.txtThoiGian.text = (item.socau).toString()+" phút"
             else
                 itemView.txtThoiGian.text = ((item.socau*50*3)/60 - 10).toString()+" phút"
             if(item.socaulamdung == -1) {

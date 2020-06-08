@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId)
             {
                 R.id.nav_fanpage->getlink("https://www.facebook.com/it.multimedia.club/")
+                R.id.nav_fanpage_DeThiPtit->getlink("https://www.facebook.com/dekiemtraptit/")
                 R.id.nav_facebook->getlink("https://www.facebook.com/baokiin")
                 R.id.nav_web->getlink("https://itmc-ptithcm.github.io/")
                 R.id.nav_danhgia->getlink("https://play.google.com/store/apps/details?id=com.ptithcm.applambaikiemtra")

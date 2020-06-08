@@ -28,6 +28,9 @@
             app:popEnterAnim="@transition/slide_in_left"
             app:popExitAnim="@transition/slide_out_right"
             app:popUpTo="@+id/fragment_BoMon" />
+        <action
+            android:id="@+id/action_fragment_DeBai_to_downloadFragment"
+            app:destination="@id/downloadFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragment_BaiThi"
@@ -68,5 +71,10 @@
             app:popExitAnim="@transition/slide_out_right" />
 
     </fragment>
+    <fragment
+        android:id="@+id/downloadFragment"
+        android:name="com.ptithcm.applambaikiemtra.DownloadFragment"
+        android:label="fragment_download"
+        tools:layout="@layout/fragment_download" />
 
 </navigation>

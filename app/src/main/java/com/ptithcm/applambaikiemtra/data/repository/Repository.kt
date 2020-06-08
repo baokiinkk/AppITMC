@@ -74,7 +74,6 @@ class Repository(val data: firestore,val dao: AppDao) {
     {
         data.getDeBai(boMon){
             GlobalScope.launch(Dispatchers.IO){
-                dao.deleteDeThi()
                 for(x in it){
                     data.getCauHoi(boMon,x.value){
                         GlobalScope.launch {

@@ -44,9 +44,6 @@ class Fragment_BoMon : Fragment() {
         val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
         val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
-        if(isConnected ==true)
-            viewModel.loadDatatoSQl()
-        else
             viewModel.loadData()
         val bd: FragmentBoMonBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment__bo_mon,container,false)
@@ -67,7 +64,7 @@ class Fragment_BoMon : Fragment() {
                                 }
                                 else
                                     Toast.makeText(context,"Thiết bị hiện không có mạng.xin vui lòng kiểm tra lại!!",Toast.LENGTH_SHORT).show()
-                                boMon_swipe.setRefreshing(false) }, 2000
+                                boMon_swipe.setRefreshing(false) }, 1000
                         )
                     }
 

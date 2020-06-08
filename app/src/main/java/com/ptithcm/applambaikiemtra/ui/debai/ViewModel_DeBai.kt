@@ -8,6 +8,7 @@ import com.ptithcm.applambaikiemtra.data.repository.Repository
 
 class ViewModel_DeBai(val repo:Repository) :ViewModel() {
     var list:MutableLiveData<MutableList<DeThi>> = MutableLiveData()
+    var listFirebase:MutableLiveData<MutableList<DeThi>> = MutableLiveData()
     var test: MutableLiveData<String> = MutableLiveData()
     var x:Int=-1
     fun loadData(bomon: String) {

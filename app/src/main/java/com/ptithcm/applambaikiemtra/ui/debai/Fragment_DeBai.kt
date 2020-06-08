@@ -41,9 +41,6 @@ class Fragment_DeBai : Fragment() {
         val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
         val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
-        if(isConnected ==true)
-            viewModel.loadDataDeThitoSQl(args.mon)
-        else
             viewModel.loadData(args.mon)
 
         val catload = CatLoadingView()
@@ -63,9 +60,14 @@ class Fragment_DeBai : Fragment() {
                 deBai_swipe.setOnRefreshListener {
                     deBai_swipe.postDelayed(
                         Runnable {
+                            if(isConnected ==true)
+                                viewModel.loadDataDeThitoSQl(args.mon)
+                            else
+                                viewModel.loadData(args.mon)
+                            it.sortBy { it.ten }
                             adapterRecycelView.submitList(it)
-                            Toast.makeText(context,"load lại thành công.",Toast.LENGTH_SHORT).show()
-                            deBai_swipe.setRefreshing(false) }, 2000
+                            Toast.makeText(context,"tải lại thành công.",Toast.LENGTH_SHORT).show()
+                            deBai_swipe.setRefreshing(false) }, 1000
                     )
                 }
                 adapterRecycelView = DeBaiAdapter { position, chosse ->
@@ -101,7 +103,7 @@ class Fragment_DeBai : Fragment() {
                 val linearLayout: RecyclerView.LayoutManager = LinearLayoutManager(context!!)
                 bd.recyclerView.adapter = adapterRecycelView
                 bd.recyclerView.layoutManager = linearLayout
-                it.sortBy { it.ten }
+                it.sortByDescending { it.ten }
                 adapterRecycelView.submitList(it)
 
             }
