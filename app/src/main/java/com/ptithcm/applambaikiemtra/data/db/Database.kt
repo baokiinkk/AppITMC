@@ -7,8 +7,9 @@ import androidx.room.RoomDatabase
 import com.ptithcm.applambaikiemtra.data.db.model.BaiThi
 import com.ptithcm.applambaikiemtra.data.db.model.BoMon
 import com.ptithcm.applambaikiemtra.data.db.model.DeThi
+import com.ptithcm.applambaikiemtra.data.db.model.Score
 
-@Database(entities = [BaiThi::class,BoMon::class,DeThi::class], version = 1)
+@Database(entities = [BaiThi::class,BoMon::class,DeThi::class, Score::class], version = 1)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun appDao(): AppDao // bac buoc co

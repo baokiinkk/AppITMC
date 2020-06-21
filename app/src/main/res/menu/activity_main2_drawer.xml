@@ -37,6 +37,10 @@
             <item android:icon="@drawable/ic_menu_manage"
                     android:title="Đánh giá"
                     android:id="@+id/nav_danhgia"/>
+            <item android:icon="@drawable/ic_menu_manage"
+                    android:id="@+id/nav_capnhat"
+                    android:title="Cập nhật"
+                />
         </menu>
     </item>
 

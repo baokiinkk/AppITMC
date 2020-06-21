@@ -5,3 +5,5 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class BoMon(@PrimaryKey val tenBoMon:String)
+@Entity
+data class Score(@PrimaryKey val score:Int)

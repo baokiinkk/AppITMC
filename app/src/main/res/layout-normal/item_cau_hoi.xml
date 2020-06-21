@@ -13,14 +13,14 @@
         android:id="@+id/group"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintVertical_weight="1"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCauHoi">
+        app:layout_constraintTop_toBottomOf="@+id/txtCauHoi"
+        >
 
         <RadioButton
             android:id="@+id/A"
@@ -38,7 +38,7 @@
         <RadioButton
             android:id="@+id/B"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_gravity="top"
             android:layout_weight="1"
             android:background="@drawable/selectic"
@@ -50,7 +50,7 @@
         <RadioButton
             android:id="@+id/C"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@drawable/selectic"
             android:paddingRight="10dp"
@@ -62,7 +62,7 @@
         <RadioButton
             android:id="@+id/D"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@drawable/selectic"
             android:paddingRight="10dp"

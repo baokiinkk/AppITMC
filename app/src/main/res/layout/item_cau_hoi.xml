@@ -25,7 +25,7 @@
             android:id="@+id/A"
             style="@style/AppTheme.AppBarOverlay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_gravity="top"
             android:layout_weight="1"
             android:background="@drawable/selectic"
@@ -37,7 +37,7 @@
         <RadioButton
             android:id="@+id/B"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_gravity="top"
             android:layout_weight="1"
             android:background="@drawable/selectic"
@@ -49,17 +49,18 @@
         <RadioButton
             android:id="@+id/C"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@drawable/selectic"
             android:paddingRight="10dp"
             android:text="ặkdnwakjdnwkjadnwjandkwjadnjkwandjkawndjkwandjkwanfjwanfdjlkwanfdjkawnfkjlwa"
             android:textColor="#000"
             android:textSize="15sp" />
+
         <RadioButton
             android:id="@+id/D"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@drawable/selectic"
             android:paddingRight="10dp"

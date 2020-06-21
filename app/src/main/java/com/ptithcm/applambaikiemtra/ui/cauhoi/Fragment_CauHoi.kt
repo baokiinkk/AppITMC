@@ -12,6 +12,7 @@ import android.os.CountDownTimer
 import android.view.*
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -58,7 +59,7 @@ class Fragment_CauHoi : Fragment() {
         bd.lifecycleOwner = this
         bd.viewmodel=viewmodel
         viewmodel.title= args.mon
-
+        viewmodel.getScore()
         //check online
         val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
         val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
@@ -73,7 +74,6 @@ class Fragment_CauHoi : Fragment() {
             .build()
         mAdView = bd.adView
         mAdView.loadAd(adRequest)
-
         var temp=args.tenDeThi
         for(i in temp.length-1 downTo 0)
         {
@@ -304,7 +304,8 @@ class Fragment_CauHoi : Fragment() {
                 }
 
                 override fun onAdClosed() {
-
+                }
+                override fun onAdClicked() {
                 }
             }
         }

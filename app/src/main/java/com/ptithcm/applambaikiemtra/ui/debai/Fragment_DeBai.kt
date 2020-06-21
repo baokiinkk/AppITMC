@@ -5,6 +5,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
+import android.os.SystemClock
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,15 +16,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ptithcm.applambaikiemtra.R
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.ptithcm.applambaikiemtra.data.db.model.BaiThi
+import com.ptithcm.applambaikiemtra.data.db.model.DeThi
 import com.ptithcm.applambaikiemtra.databinding.FragmentDeBaiBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.roger.catloadinglibrary.CatLoadingView
 import kotlinx.android.synthetic.main.fragment__bo_mon.*
 import kotlinx.android.synthetic.main.fragment__de_bai.*
+import kotlin.math.abs
 
 
 /**
@@ -32,7 +38,7 @@ class Fragment_DeBai : Fragment() {
     lateinit var adapterRecycelView:DeBaiAdapter
     val viewModel: ViewModel_DeBai by viewModel<ViewModel_DeBai>()
     val args : Fragment_DeBaiArgs by navArgs()
-
+    var tentemp =""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +47,10 @@ class Fragment_DeBai : Fragment() {
         val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
         val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+        viewModel.getScore()
+        if(isConnected)
+            viewModel.loadDataDeThitoSQl(args.mon)
+        else
             viewModel.loadData(args.mon)
 
         val catload = CatLoadingView()
@@ -71,13 +81,12 @@ class Fragment_DeBai : Fragment() {
                     )
                 }
                 adapterRecycelView = DeBaiAdapter { position, chosse ->
-
-                    if(isConnected == false && it[position].socausql == 0)
-                    {
-                        Toast.makeText(context,"Vui lòng kết nối mạng để tải đề thi",Toast.LENGTH_SHORT).show()
-                    }
-                    else {
                         if (chosse == 1) {
+                            if(it[position].socausql < 0)
+                            {
+                                Toast.makeText(context,"Vui lòng kết nối mạng và tải đề thi",Toast.LENGTH_SHORT).show()
+                            }
+                            else{
                             var list = ""
                             for (i in 0..it[position].socau)
                                 list += "0"
@@ -87,7 +96,19 @@ class Fragment_DeBai : Fragment() {
                                     false, list,it[position].socaulamdung
                                 )
                             findNavController().navigate(actionToFinsh)
-                        } else if (chosse == 3) {
+                            }
+                        }
+                        else if(chosse == 2){
+                            if(isConnected ==true){
+                                catload.show(activity!!.supportFragmentManager, "loading")
+                                viewModel.loadBaiThiToSQL(args.mon, it[position].ten)
+                                tentemp = it[position].ten
+                            }
+                            else
+                                Toast.makeText(context,"Thiết bị không có mạng để tải đề,vui lòng kết nối và thử lại sau!!",Toast.LENGTH_SHORT).show()
+
+                        }
+                        else if (chosse == 3) {
                             val actionToFinsh: NavDirections =
                                 Fragment_DeBaiDirections.toCauHoi(
                                     it[position].ten,
@@ -97,7 +118,6 @@ class Fragment_DeBai : Fragment() {
                                 )
                             findNavController().navigate(actionToFinsh)
                         }
-                    }
                 }
 
                 val linearLayout: RecyclerView.LayoutManager = LinearLayoutManager(context!!)
@@ -107,9 +127,19 @@ class Fragment_DeBai : Fragment() {
                 adapterRecycelView.submitList(it)
 
             }
+
         })
-
-
+        viewModel.listCauHoi.observe(viewLifecycleOwner, Observer { bt->
+            if(bt != null) {
+                var list = ""
+                for (i in 0..bt.size)
+                    list += "0"
+                viewModel.updateDeThi(DeThi(ten=tentemp,bomon = args.mon,socau = bt.size,socaulamdung = -1,list = list,socausql = 0))
+                catload.dismiss()
+                Toast.makeText(context,"Đã tải xong",Toast.LENGTH_SHORT).show()
+                viewModel.loadData(args.mon)
+            }
+        })
         return bd.root
     }
 

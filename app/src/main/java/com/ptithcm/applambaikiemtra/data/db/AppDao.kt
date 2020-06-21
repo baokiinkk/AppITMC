@@ -4,6 +4,7 @@ import androidx.room.*
 import com.ptithcm.applambaikiemtra.data.db.model.BaiThi
 import com.ptithcm.applambaikiemtra.data.db.model.BoMon
 import com.ptithcm.applambaikiemtra.data.db.model.DeThi
+import com.ptithcm.applambaikiemtra.data.db.model.Score
 
 @Dao
 interface AppDao {
@@ -11,6 +12,9 @@ interface AppDao {
     //insert
     @Insert(onConflict = OnConflictStrategy.IGNORE) // khi trung thi bo qua
     suspend fun addBoMon(bomon: BoMon)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE) // khi trung thi bo qua
+    suspend fun addScore(score: Score)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE) // khi trung thi bo qua
     suspend fun addDeThi(deThi: DeThi)
@@ -25,6 +29,7 @@ interface AppDao {
     @Update
     suspend fun updateBoMon(bomon: BoMon)
 
+
     @Update
     suspend fun updateBaiThi(baiThi: BaiThi)
 
@@ -36,6 +41,11 @@ interface AppDao {
     suspend fun getALLBoMon(): MutableList<BoMon>
     @Query("DELETE  from BoMon")
     suspend fun deleteBoMon()
+
+    @Query("select * from Score")
+    suspend fun getScore(): Score
+    @Query("DELETE  from Score")
+    suspend fun deleteScore()
 
     @Query("select * from DeThi Where DeThi.bomon= :bomon")
     suspend fun getDethi(bomon:String): MutableList<DeThi>

@@ -9,6 +9,8 @@ class ViewModel_CauHoi(val rep:Repository) :ViewModel() {
     var list:MutableLiveData<MutableList<BaiThi> > = MutableLiveData()
     var check:MutableLiveData<Boolean> = MutableLiveData(false)
     var text:MutableLiveData<String> = MutableLiveData("Thời Gian")
+    var scor:MutableLiveData<Int> = MutableLiveData()
+
     var title:String=""
     fun listener()
     {
@@ -25,11 +27,12 @@ class ViewModel_CauHoi(val rep:Repository) :ViewModel() {
     {
         rep.updateDeThi(deThi)
     }
-    fun loadBaiThiToSQL(boMon:String,deThi:String)
-    {
-        rep.getDataCauHoiFromApiToSQL(boMon,deThi)
-        {
-            list.postValue(it)
+    fun updateSocre(int:Int){
+        rep.updateScore(int)
+    }
+    fun getScore(){
+        rep.getDataScore {
+            scor.postValue(it)
         }
     }
 }

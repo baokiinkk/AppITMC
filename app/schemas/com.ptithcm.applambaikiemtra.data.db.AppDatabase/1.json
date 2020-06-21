@@ -2,12 +2,18 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "fefafbfc96ad2008beb62e2f251ac317",
+    "identityHash": "3168c40504b6c5ccd7d4225ae816c96b",
     "entities": [
       {
         "tableName": "BaiThi",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cauhoi` TEXT NOT NULL, `A` TEXT NOT NULL, `B` TEXT NOT NULL, `C` TEXT NOT NULL, `D` TEXT NOT NULL, `dapan` TEXT NOT NULL, `DeThiID` TEXT NOT NULL, PRIMARY KEY(`cauhoi`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cauhoi` TEXT NOT NULL, `A` TEXT NOT NULL, `B` TEXT NOT NULL, `C` TEXT NOT NULL, `D` TEXT NOT NULL, `dapan` TEXT NOT NULL, `DeThiID` TEXT NOT NULL)",
         "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "cauhoi",
             "columnName": "cauhoi",
@@ -53,9 +59,9 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "cauhoi"
+            "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -129,12 +135,32 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Score",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`score` INTEGER NOT NULL, PRIMARY KEY(`score`))",
+        "fields": [
+          {
+            "fieldPath": "score",
+            "columnName": "score",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "score"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fefafbfc96ad2008beb62e2f251ac317')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3168c40504b6c5ccd7d4225ae816c96b')"
     ]
   }
 }
