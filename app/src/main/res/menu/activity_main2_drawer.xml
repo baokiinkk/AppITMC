@@ -4,7 +4,6 @@
     tools:showIn="navigation_view"
     >
     <item android:title="Liên hệ"
-
         >
         <menu>
             <group android:checkableBehavior="single">
@@ -19,7 +18,7 @@
                 <item
                     android:id="@+id/nav_fanpage_DeThiPtit"
                     android:title="Fanpage Đề Kiểm Tra PTIT"
-                    android:icon="@drawable/ic_menu_camera"
+                    android:icon="@drawable/ic_menu_share"
                     />
                 <item
                     android:id="@+id/nav_facebook"
@@ -37,9 +36,9 @@
             <item android:icon="@drawable/ic_menu_manage"
                     android:title="Đánh giá"
                     android:id="@+id/nav_danhgia"/>
-            <item android:icon="@drawable/ic_menu_manage"
+            <item android:icon="@drawable/ic_menu_share"
                     android:id="@+id/nav_capnhat"
-                    android:title="Cập nhật"
+                    android:title="Tải app UIS"
                 />
         </menu>
     </item>

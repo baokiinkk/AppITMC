@@ -27,6 +27,10 @@ class DeBaiAdapter(val setBaseClick:((Int,Int)->Unit)) : ListAdapter<DeThi, DeBa
         {
             binding.item=item
             binding.executePendingBindings()
+            itemView.download.visibility = View.VISIBLE
+            itemView.txtSoCau.visibility=View.VISIBLE
+            itemView.txtSoCauLamDuoc.visibility=View.INVISIBLE
+            itemView.btnThiLai.visibility=View.GONE
             if(item.socau <= 0)
                 itemView.txtSoCau.visibility=View.INVISIBLE
             else{

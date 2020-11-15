@@ -5,30 +5,33 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
-import android.os.SystemClock
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.ptithcm.applambaikiemtra.R
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.MutableLiveData
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.ptithcm.applambaikiemtra.data.db.model.BaiThi
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ptithcm.applambaikiemtra.R
 import com.ptithcm.applambaikiemtra.data.db.model.DeThi
 import com.ptithcm.applambaikiemtra.databinding.FragmentDeBaiBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.roger.catloadinglibrary.CatLoadingView
 import kotlinx.android.synthetic.main.fragment__bo_mon.*
 import kotlinx.android.synthetic.main.fragment__de_bai.*
-import kotlin.math.abs
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.IOException
+import java.net.InetAddress
+import java.net.InetSocketAddress
+import java.net.Socket
+import java.net.SocketAddress
 
 
 /**
@@ -44,14 +47,14 @@ class Fragment_DeBai : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
-        val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
-        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
         viewModel.getScore()
-        if(isConnected)
-            viewModel.loadDataDeThitoSQl(args.mon)
-        else
-            viewModel.loadData(args.mon)
+        GlobalScope.launch(Dispatchers.IO){
+            if(isOnline())
+                viewModel.loadDataDeThitoSQl(args.mon)
+            else
+                viewModel.loadData(args.mon)
+        }
+
 
         val catload = CatLoadingView()
         catload.show(activity!!.supportFragmentManager, "loading")
@@ -66,25 +69,25 @@ class Fragment_DeBai : Fragment() {
         viewModel.list.observe(viewLifecycleOwner, Observer {
             if(it!=null) {
                 catload.dismiss()
-                deBai_swipe.setWaveRGBColor(255,255,255)
+                deBai_swipe.setRefreshing(false)
+                deBai_swipe.setWaveARGBColor(100,109,36,248)
                 deBai_swipe.setOnRefreshListener {
-                    deBai_swipe.postDelayed(
-                        Runnable {
-                            if(isConnected ==true)
-                                viewModel.loadDataDeThitoSQl(args.mon)
-                            else
-                                viewModel.loadData(args.mon)
+                    GlobalScope.launch {
+                        if(isOnline())
+                            viewModel.loadDataDeThitoSQl(args.mon)
+                        else
+                            viewModel.loadData(args.mon)
+                    }
                             it.sortBy { it.ten }
                             adapterRecycelView.submitList(it)
                             Toast.makeText(context,"tải lại thành công.",Toast.LENGTH_SHORT).show()
-                            deBai_swipe.setRefreshing(false) }, 1000
-                    )
+
                 }
                 adapterRecycelView = DeBaiAdapter { position, chosse ->
                         if (chosse == 1) {
                             if(it[position].socausql < 0)
                             {
-                                Toast.makeText(context,"Vui lòng kết nối mạng và tải đề thi",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context,"Vui lòng nhấn vào nút bên phải để tải đề thi",Toast.LENGTH_SHORT).show()
                             }
                             else{
                             var list = ""
@@ -99,13 +102,18 @@ class Fragment_DeBai : Fragment() {
                             }
                         }
                         else if(chosse == 2){
-                            if(isConnected ==true){
-                                catload.show(activity!!.supportFragmentManager, "loading")
-                                viewModel.loadBaiThiToSQL(args.mon, it[position].ten)
-                                tentemp = it[position].ten
+                            GlobalScope.launch(Dispatchers.IO) {
+                                if(isOnline()){
+                                    catload.show(activity!!.supportFragmentManager, "loading")
+                                    viewModel.loadBaiThiToSQL(args.mon, it[position].ten)
+                                    tentemp = it[position].ten
+                                }
+                                else
+                                    GlobalScope.launch(Dispatchers.Main){
+                                        Toast.makeText(context,"Thiết bị không có mạng để tải đề,vui lòng kết nối và thử lại sau!!",Toast.LENGTH_SHORT).show()
+                                    }
+
                             }
-                            else
-                                Toast.makeText(context,"Thiết bị không có mạng để tải đề,vui lòng kết nối và thử lại sau!!",Toast.LENGTH_SHORT).show()
 
                         }
                         else if (chosse == 3) {
@@ -123,7 +131,7 @@ class Fragment_DeBai : Fragment() {
                 val linearLayout: RecyclerView.LayoutManager = LinearLayoutManager(context!!)
                 bd.recyclerView.adapter = adapterRecycelView
                 bd.recyclerView.layoutManager = linearLayout
-                it.sortByDescending { it.ten }
+                it.sortBy { it.ten }
                 adapterRecycelView.submitList(it)
 
             }
@@ -138,11 +146,23 @@ class Fragment_DeBai : Fragment() {
                 catload.dismiss()
                 Toast.makeText(context,"Đã tải xong",Toast.LENGTH_SHORT).show()
                 viewModel.loadData(args.mon)
+                viewModel.listCauHoi.postValue(null)
             }
         })
         return bd.root
     }
 
-
+    fun isOnline(): Boolean {
+        return try {
+            val timeoutMs = 1500
+            val sock = Socket()
+            val sockaddr: SocketAddress = InetSocketAddress("8.8.8.8", 53)
+            sock.connect(sockaddr, timeoutMs)
+            sock.close()
+            true
+        } catch (e: IOException) {
+            false
+        }
+    }
 
 }

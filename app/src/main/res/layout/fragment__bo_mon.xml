@@ -9,18 +9,18 @@
             name="viewmodel"
             type="com.ptithcm.applambaikiemtra.ui.boMon.ViewModel_BoMon" />
     </data>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="?attr/actionBarSize"
-        android:background="@drawable/background_main"
+    android:background="@drawable/backrounds"
     >
-
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="200dp"
         android:layout_height="100dp"
+        android:layout_marginTop="?attr/actionBarSize"
         android:background="@drawable/itmc"
         android:textColor="#FDFEFF"
         android:textSize="30sp"
@@ -29,41 +29,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/backround"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        tools:context=".ui.debai.Fragment_DeBai">
+
 
         <!-- TODO: Update blank fragment layout -->
 
-        <jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout
-            android:id="@+id/boMon_swipe"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="20dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            tools:context=".ui.debai.Fragment_DeBai"
 
+           >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="50dp"
+                android:background="#E7DFF6"
+                />
+            <jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout
+                android:id="@+id/boMon_swipe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="30dp"
+                >
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
                 />
-        </jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout>
+            </jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout>
+        </FrameLayout>
 
-    </FrameLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

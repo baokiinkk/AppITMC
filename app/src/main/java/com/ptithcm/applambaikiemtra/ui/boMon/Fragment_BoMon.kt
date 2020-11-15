@@ -20,7 +20,14 @@ import com.ptithcm.applambaikiemtra.R
 import com.ptithcm.applambaikiemtra.databinding.FragmentBoMonBinding
 import com.roger.catloadinglibrary.CatLoadingView
 import kotlinx.android.synthetic.main.fragment__bo_mon.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.IOException
+import java.net.InetSocketAddress
+import java.net.Socket
+import java.net.SocketAddress
 import java.util.*
 
 
@@ -41,13 +48,13 @@ class Fragment_BoMon : Fragment() {
         catload.setText("Đợi chút nhoa!")
         catload.setClickCancelAble(false)
 
-        val cm: ConnectivityManager? = activity?.getSystemService(Context.CONNECTIVITY_SERVICE ) as ConnectivityManager?
-        val activeNetwork: NetworkInfo? = cm?.activeNetworkInfo
-        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
-        if(isConnected)
-            viewModel.loadDatatoSQl()
-        else
-            viewModel.loadData()
+        GlobalScope.launch(Dispatchers.IO){
+            if(isOnline())
+                viewModel.loadDatatoSQl()
+            else
+                viewModel.loadData()
+        }
+
         val bd: FragmentBoMonBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment__bo_mon,container,false)
         bd.lifecycleOwner=this
@@ -56,19 +63,27 @@ class Fragment_BoMon : Fragment() {
         viewModel.list.observe(viewLifecycleOwner, Observer {
                 if(it != null)
                 {
+                    boMon_swipe.setRefreshing(false)
                     catload.dismiss()
-                    boMon_swipe.setWaveRGBColor(63,81,181)
+                    boMon_swipe.setRefreshing(false)
+                    boMon_swipe.setWaveARGBColor(100,109,36,248)
                     boMon_swipe.setOnRefreshListener {
-                        boMon_swipe.postDelayed(
-                            Runnable {
-                                if(isConnected ==true) {
+                            GlobalScope.launch(Dispatchers.IO){
+                                if(isOnline()) {
                                     viewModel.loadDatatoSQl()
-                                    Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show()
+                                    GlobalScope.launch(Dispatchers.Main){
+                                        Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show()
+
+                                    }
                                 }
                                 else
-                                    Toast.makeText(context,"Thiết bị hiện không có mạng.xin vui lòng kiểm tra lại!!",Toast.LENGTH_SHORT).show()
-                                boMon_swipe.setRefreshing(false) }, 1000
-                        )
+                                    GlobalScope.launch(Dispatchers.Main){
+                                        Toast.makeText(context,"Thiết bị hiện không có mạng.xin vui lòng kiểm tra lại!!",Toast.LENGTH_SHORT).show()
+                                        boMon_swipe.setRefreshing(false)
+                                    }
+
+                            }
+
                     }
 
                     viewModel.test.value= it.size.toString()+" môn"
@@ -89,6 +104,17 @@ class Fragment_BoMon : Fragment() {
         )
         return bd.root
     }
-
+    fun isOnline(): Boolean {
+        return try {
+            val timeoutMs = 1500
+            val sock = Socket()
+            val sockaddr: SocketAddress = InetSocketAddress("8.8.8.8", 53)
+            sock.connect(sockaddr, timeoutMs)
+            sock.close()
+            true
+        } catch (e: IOException) {
+            false
+        }
+    }
 
 }

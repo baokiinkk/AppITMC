@@ -83,7 +83,7 @@ class Fragment_CauHoi : Fragment() {
                 break;
             }
         }
-        bd.text3.text=temp
+
         viewmodel.list.observe(viewLifecycleOwner, Observer {
             if(it != null)
             {
@@ -263,14 +263,13 @@ class Fragment_CauHoi : Fragment() {
         }
         viewmodel.updateDeThi(DeThi(args.tenDeThi,args.mon,dem,viewmodel.list.value!!.size,viewmodel.list.value!!.size,updateListChon))
         val dialog: Dialog=Dialog(context!!)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-//        dialog.getWindow()?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        dialog.getWindow()?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.setContentView(R.layout.dialog)
         dialog.soCau.text=dem.toString()+"/"+ viewmodel.list.value!!.size.toString()
-
+        dialog.soCauSai.text = (viewmodel.list.value!!.size-dem).toString()+"/"+ viewmodel.list.value!!.size.toString()
         // từ biến dem trên để tính ra số điểm.
-        dialog.diem.text=((Math.ceil(((dem*10)*1.0/viewmodel.list.value!!.size)*100)).toDouble()/100).toString()
+        dialog.progressbarDialog.progress=(dem*100)/ viewmodel.list.value!!.size
         dialog.button.setOnClickListener { dialog.cancel() }
         val FORMAT:String = "%02d:%02d"
         val tg:Long= (demtg*1000).toLong()

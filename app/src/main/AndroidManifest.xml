@@ -17,14 +17,15 @@
         <activity android:name="com.ptithcm.applambaikiemtra.ui.main.MainActivity"
         android:screenOrientation="portrait"
             >
-
+        </activity>
+        <activity android:name="com.ptithcm.applambaikiemtra.ui.main.SplashActivity"
+            android:theme="@style/SplashTheme"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-7164558917062783~4182490965" />

@@ -150,19 +150,19 @@ class AdapterRecycleView(val list:MutableLiveData<MutableList<BaiThi>>,listchon:
     {
         if(vitri == "1")
         {
-            btnA.setBackgroundResource(R.drawable.checked)
+            btnA.setBackgroundResource(R.drawable.rights)
 
         }
         else if(vitri == "2")
         {
-            btnB.setBackgroundResource(R.drawable.checked)
+            btnB.setBackgroundResource(R.drawable.rights)
         }
         else if(vitri == "3"){
-            btnC.setBackgroundResource(R.drawable.checked)
+            btnC.setBackgroundResource(R.drawable.rights)
         }
         else if(vitri == "4")
         {
-            btcD.setBackgroundResource(R.drawable.checked)
+            btcD.setBackgroundResource(R.drawable.rights)
         }
     }
     fun toDo(vitri:Char,btnA: RadioButton,btnB: RadioButton,btnC: RadioButton,btcD: RadioButton)

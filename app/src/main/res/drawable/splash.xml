@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/backrounds" >
+        <shape>
+            <corners android:radius="10dp"/>
+            <solid android:color="@color/colorTomorrow"/>
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#4000D7C1"
+                android:centerColor="#00FFFFFF"
+                android:endColor="#0000D7C1"
+                android:angle="315"/>
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
+    <item android:drawable="@drawable/ic_logo_main"
+        android:width="100dp"
+        android:height="100dp"
+        android:gravity="center"
+        >
+
+    </item>
+
+</layer-list>
