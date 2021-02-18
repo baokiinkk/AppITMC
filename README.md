@@ -27,6 +27,7 @@
     - databinding.
 - FireStore:
     - Sử dụng FireStore để lưu các bộ đề, khi người dùng online sẽ hiển thị các đề thi, người dùng có thể thi onl hoặc tải đề thi về database sqlLite để thi off.
+    - admob để lồng các quảng cáo.
 - Các thành phần sử dụng:
     - RecycleView: sử dụng listAdapter để tối ưu.
     - ViewPage2+TabLayout để thực hiện vuốt các item, hoặc lựa chọn các tab phía dưới.
