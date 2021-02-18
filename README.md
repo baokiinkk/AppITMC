@@ -1,7 +1,5 @@
 # AppITMC
 
-![Authors](https://play-lh.googleusercontent.com/IhsJHKS8SFOoXYptYQTJ9-PEnfsLRNTneIi3frtVMpQV1aChXmkUqAAblrnPThvYmD8=w1366-h657-rw)
-
 
 ### Thực Hiện:
 - **Hồ Minh Quốc Bảo** 
@@ -35,16 +33,19 @@
     - Xử lí đa màn hình.
 
 #### III. Ảnh Demo
-![2D](https://play-lh.googleusercontent.com/VHn6teF41mG1XzN_44UZgA5XRCURRi3_MizaHhJIBU_SPz2kKAEqhkgrYMng7I9-TrY-=w1366-h657-rw)
+![2D](https://play-lh.googleusercontent.com/ExiSVFZPAHrBre0fv7rVpAtE3q2NyYh-3KcdndXYOl-fgxRTr5s_oLNAOZ5E6_AKakc=w720-h310-rw)
 
-![3D](https://play-lh.googleusercontent.com/EFFi2tB1gdtRo503KsFHMVtRd4x-L63LGrFmiqf-WuyKlxa1Dk9a6I14W_QnKsaYuA=w720-h310-rw)
+![3D](https://play-lh.googleusercontent.com/y9WIGq-XUTyvZk4yEim8vznVEph16RTHkVsgc5opLFLjwi4W-vXw-qD34TBarDV9aUQ=w720-h310-rw)
 
-![4D](https://play-lh.googleusercontent.com/O5iFVPSq6az0oujSFbU9gwNtBo5k3kuKm5nHepSY6J2CfWx_O3sms5F4AW2Ml7HEe-Y=w720-h310-rw)
+![4D](https://play-lh.googleusercontent.com/zmfga3cDI1_2tFzyeMwU147duZOPEcHnqBLfm6YdSbyUDXku51XSTMArUcbDOE7TRS4-=w720-h310-rw)
 
-![Impossible Triangle](https://play-lh.googleusercontent.com/1M4WQs0Dm-T2OolWRKSz1cn11Q_zP8o5m6MVeGfE6xA0OIaL5EtxFIC8Y2rqxz6zuA=w720-h310-rw)
+![Impossible Triangle](https://play-lh.googleusercontent.com/6ts5KrRf1eUXXvAwRzxbKb0NPNzcT9UvtMe_70okhH5q7H8RDS_JPttY1tnYjV7ATD0=w720-h310-rw)
+
+![Impossible Triangle](https://play-lh.googleusercontent.com/VG7q8jpoIcOckN-gdhJc7QTDdF9mZZxzGKSDmbw3hbNUKBG692mi7bBtNqqHBjTHzjxN=w720-h310-rw)
+
 
 #### III. Link tải app
-https://play.google.com/store/apps/details?id=com.baokiin.uisptit&hl=vi&gl=US
+https://play.google.com/store/apps/details?id=com.ptithcm.applambaikiemtra
 
 
 
